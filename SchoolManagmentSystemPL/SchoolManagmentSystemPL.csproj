@@ -4,6 +4,16 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-SchoolManagmentSystem.PL-0d646637-fef2-485d-8622-447958056463</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="9.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\MVC\SchoolManagmentSystemProject\SchoolManagmentSystemBLL\SchoolManagmentSystemBLL.csproj" />
+  </ItemGroup>
 
 </Project>
