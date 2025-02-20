@@ -8,13 +8,13 @@ namespace SchoolManagmentSystemBLL.IGenericRepos
 {
     public interface IgenericRepo<T> where T : class
     {
-        public List<T> GetAll();
-        public T GetById(int id);
+        public Task<List<T>> GetAll();
+        public Task<T> GetById(int id);
 
 
         public void Delete(int id);
         public void Update(T item);
-        public void Add(T item);
+        public Task Add(T item);
 
     }
 }

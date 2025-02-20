@@ -1,4 +1,5 @@
-﻿using SchoolManagmentSystem.PL.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using SchoolManagmentSystem.PL.Data;
 using SchoolManagmentSystemBLL.IGenericRepos;
 using System;
 using System.Collections.Generic;
@@ -16,32 +17,32 @@ namespace SchoolManagmentSystemBLL.GenericRepo
         {
             this.context = context;
         }
-        public void Add(T item)
+        public async Task Add(T item)
         {
-            context.Set<T>().Add(item);
+           await context.Set<T>().AddAsync(item);
         }
 
-        public void Delete(int id)
+        public async void Delete(int id)
         {
-            T DeletedItem = GetById(id);
+            T DeletedItem =await  GetById(id);
             context.Set<T>().Remove(DeletedItem);
         }
 
-        public List<T> GetAll()
+        public async Task<List<T>> GetAll()
         {
-            return context.Set<T>().ToList();
+            return await context.Set<T>().ToListAsync();
         }
 
-        public T GetById(int id)
+        public async Task<T> GetById(int id)
         {
-            return context.Set<T>().Find(id);
+            return await context.Set<T>().FindAsync(id);
         }
 
 
 
-        public void Update(T item)
+        public  void Update(T item)
         {
-            context.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+             context.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
 
         }
     }

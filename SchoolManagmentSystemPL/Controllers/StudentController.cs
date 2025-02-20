@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
+using Castle.Core.Resource;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SchoolManagmentSystem.DAL.Models;
+using SchoolManagmentSystemBLL.GenericRepo;
 using SchoolManagmentSystemBLL.Mapping;
 using SchoolManagmentSystemBLL.UnitOfWork;
 using SchoolManagmentSystemDAL.ViewModels;
@@ -17,13 +20,19 @@ namespace SchoolManagmentSystemPL.Controllers
             unit = _unit;
             mapper = _mapper;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
 
-            List<Student> Students=unit.StudentRepo.GetAll();
+            List<Student> Students= await unit.StudentRepo.GetAll();
             List<StudentVM> StudentsVm = mapper.Map<List<StudentVM>>(Students);
            
-            return View(StudentsVm);
+            return  View(StudentsVm);
+        }
+        public IActionResult Search(string searchTerm)
+        {
+            var students = unit.StudentRepo.SearchByNameOrClass(searchTerm);
+            
+            return PartialView("_CustomerList", students);
         }
     }
 }

@@ -1,39 +1,18 @@
 ﻿@model List<StudentVM>
 <h1 class=" p-5 text-center box-shadow">Our Course</h1>
-<table class="table table-bordered table-hover w-75 m-auto mb-5 ">
+<input type="text" id="searchBox" placeholder="Enter customer name or city" />
+<button id="searchButton">Search</button>
+<div id="searchResults">
+    <partial name="_StudentTable" model="@Model"></partial>
 
-    <thead>
-
-    <td> Name</td>
-    <td>Email</td>
-    <td>Phone</td>
-    <td>Address</td>
-    <td>Date Of Birth</td>
-    <td>Age</td>
-    <td>Gender</td>
-    <td>Date of Enrollment</td>
-    <td>Parent Name</td>
-    <td>Class</td>
-
-    </thead>
-
-    @foreach (StudentVM student in Model)
-    {
-        <tr>
-            <td>@student.StudentName </td>
-            <td>@student.StudentEmail</td>
-            <td>@student.PhoneNumber</td>
-            <td>@student.Address</td>
-            <td>@student.DateOfBirth</td>
-            <td>@student.Age</td>
-            <td>@student.gender</td>
-            <td>@student.HireDate</td>
-            <td>@student.ParentName</td>
-            <td>@student.ClassName</td>
-        </tr>
-    }
-
-</table>
+</div>
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        
+    </script>
+}
 <div class="p-5 d-flex justify-content-center align-items-center">
+    
     <a asp-controller="Student" asp-action="Add" class="btn btn-dark p-3 fst-italic fs-1">Add New Student</a>
 </div>
