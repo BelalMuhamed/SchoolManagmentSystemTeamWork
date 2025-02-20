@@ -2,13 +2,15 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SchoolManagmentSystem.DAL.Extend;
 using SchoolManagmentSystem.PL.Data;
+using SchoolManagmentSystemBLL.UnitOfWork;
+using SchoolManagmentSystemBLL.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<ApplicationDbContext>(op => op.UseLazyLoadingProxies().UseSqlServer(connectionString));
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 
@@ -17,6 +19,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
         .AddDefaultTokenProviders();
 builder.Services.AddRazorPages(); 
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<UnitofWork>();
+builder.Services.AddAutoMapper(typeof(Mapping));
 
 var app = builder.Build();
 

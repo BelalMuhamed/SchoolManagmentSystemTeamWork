@@ -10,10 +10,15 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="9.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\MVC\SchoolManagmentSystemProject\SchoolManagmentSystemBLL\SchoolManagmentSystemBLL.csproj" />
+    <ProjectReference Include="..\SchoolManagmentSystemBLL\SchoolManagmentSystemBLL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Student\" />
   </ItemGroup>
 
 </Project>

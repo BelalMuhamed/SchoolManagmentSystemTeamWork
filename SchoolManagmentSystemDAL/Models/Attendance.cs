@@ -17,10 +17,10 @@ namespace SchoolManagmentSystem.DAL.Models
         public int Id { get; set; }
 
         [Required]
-        public string UserId { get; set; } = null!;
+        public string UserId { get; set; }
 
         [ForeignKey("UserId")]
-        public ApplicationUser? User { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
         [Required]
         public AttendanceStatus Status { get; set; }

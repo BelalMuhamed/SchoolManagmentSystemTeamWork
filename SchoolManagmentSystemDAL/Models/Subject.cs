@@ -23,7 +23,7 @@ namespace SchoolManagmentSystem.DAL.Models
         [Required]
         [Range(0, 100)]
         public double MinDegree { get; set; }
-        public List<Teacher> Teachers { get; } = new List<Teacher>();
+        public virtual List<Teacher> Teachers { get; } = new List<Teacher>();
     }
 
 }
