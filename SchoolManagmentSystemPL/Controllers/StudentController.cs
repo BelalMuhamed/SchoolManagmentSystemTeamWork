@@ -20,19 +20,19 @@ namespace SchoolManagmentSystemPL.Controllers
             unit = _unit;
             mapper = _mapper;
         }
-        public async Task<IActionResult> Index()
+        [HttpGet]
+       
+        public async Task<IActionResult> Index(string searchitem)
         {
-
-            List<Student> Students= await unit.StudentRepo.GetAll();
+            
+            List<Student> Students= await unit.StudentRepo.SearchByName(searchitem);
             List<StudentVM> StudentsVm = mapper.Map<List<StudentVM>>(Students);
-           
+           if(!string.IsNullOrEmpty(searchitem))
+            {
+                return PartialView("_StudentTable", StudentsVm);
+            }
             return  View(StudentsVm);
         }
-        public IActionResult Search(string searchTerm)
-        {
-            var students = unit.StudentRepo.SearchByNameOrClass(searchTerm);
-            
-            return PartialView("_CustomerList", students);
-        }
+        
     }
 }

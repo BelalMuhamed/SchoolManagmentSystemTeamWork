@@ -1,18 +1,33 @@
 ﻿@model List<StudentVM>
-<h1 class=" p-5 text-center box-shadow">Our Course</h1>
-<input type="text" id="searchBox" placeholder="Enter customer name or city" />
-<button id="searchButton">Search</button>
-<div id="searchResults">
-    <partial name="_StudentTable" model="@Model"></partial>
-
-</div>
-@section Scripts {
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        
-    </script>
-}
-<div class="p-5 d-flex justify-content-center align-items-center">
+<h1 class=" p-5 text-center box-shadow">All Students </h1>
     
-    <a asp-controller="Student" asp-action="Add" class="btn btn-dark p-3 fst-italic fs-1">Add New Student</a>
-</div>
+        <div class="mb-3 mt-2 d-flex justify-content-lg-between ">
+            <input type="text" class="form-control w-25" id="searchinput" placeholder="search by student name "/>
+    <a asp-controller="Student" asp-action="Add" class="btn btn-dark w-25">Add New Student</a>
+
+        </div>
+      
+
+<table class="table table-bordered table-hover w-100 m-auto mb-5 ">
+
+    <thead>
+
+    <td> Name</td>
+    <td>Email</td>
+    <td>Phone</td>
+    <td>Address</td>
+    <td>Date Of Birth</td>
+    <td>Age</td>
+    <td>Gender</td>
+    <td>Date of Enrollment</td>
+    <td>Parent Name</td>
+    <td>Class</td>
+
+    </thead>
+
+    <tbody id="result">
+        <partial name="_StudentTable" model="@Model"></partial>
+    </tbody>
+
+</table>
+

@@ -20,15 +20,10 @@ namespace SchoolManagmentSystemBLL.GenericRepo
         {
           
         }
-        public List<Student> SearchByNameOrClass(string SearchItem)
+        public async Task<List<Student>> SearchByName(string SearchItem)
         {
-            List<Student> SearchedStudents = string.IsNullOrEmpty(SearchItem)
-             ? new List<Student>()
-             : context.Students
-                 .Where(c => c.User.UserName.ToLower().Contains(SearchItem.Trim().ToLower()) || c.Class.Name.ToLower().Contains(SearchItem.Trim().ToLower())).ToList();
-                 
-
-            return SearchedStudents; 
-           }
+            List<Student> SearchedStudents = await context.Students.Where(s => (string.IsNullOrEmpty(SearchItem) || s.User.UserName.Trim().ToLower().Contains(SearchItem.Trim().ToLower()))).ToListAsync();
+            return SearchedStudents;
+        }
     }
 }
