@@ -14,10 +14,10 @@ namespace SchoolManagmentSystem.DAL.Models
     {
         [Required]
         [MaxLength(255)]
-        public string Name { get; set; } = null!;
+        public string Name { get; set; } 
 
-        [Required]
-        public string ManagerId { get; set; } = null!;
+        
+        public string? ManagerId { get; set; } 
 
         [ForeignKey("ManagerId")]
         public virtual ApplicationUser User { get; set; }

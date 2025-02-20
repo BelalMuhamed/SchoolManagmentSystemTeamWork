@@ -17,8 +17,4 @@
     <ProjectReference Include="..\SchoolManagmentSystemBLL\SchoolManagmentSystemBLL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Student\" />
-  </ItemGroup>
-
 </Project>
