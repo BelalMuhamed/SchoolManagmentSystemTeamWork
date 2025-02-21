@@ -15,7 +15,7 @@ namespace SchoolManagmentSystem.PL.Data
         public DbSet<ClassExam> ClassExams { get; set; }
         public DbSet<Exam> Exams { get; set; }
         public DbSet<Class> Classes { get; set; }
-        public DbSet<StudentPhone> StudentPhones { get; set; }
+  
         public DbSet<Student> Students { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<UserExam> UserExams { get; set; }
