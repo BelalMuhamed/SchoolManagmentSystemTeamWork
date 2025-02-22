@@ -1,4 +1,5 @@
 ﻿using SchoolManagmentSystem.DAL.Extend;
+using SchoolManagmentSystemDAL.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -24,6 +25,8 @@ namespace SchoolManagmentSystem.DAL.Models
         [Range(0, 100)]
         public double MinDegree { get; set; }
         public virtual List<Teacher> Teachers { get; } = new List<Teacher>();
+        public virtual List<ClassAndSubjects> classsubjesct { get; } = new List<ClassAndSubjects>();
+
     }
 
 }

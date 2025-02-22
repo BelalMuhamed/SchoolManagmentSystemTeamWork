@@ -15,24 +15,27 @@ namespace SchoolManagmentSystemPL.Controllers
         private readonly UnitofWork unit;
         private readonly IMapper mapper;
 
-        public StudentController(UnitofWork _unit,IMapper _mapper)
+        public StudentController(UnitofWork _unit, IMapper _mapper)
         {
             unit = _unit;
             mapper = _mapper;
         }
         [HttpGet]
-       
+
         public async Task<IActionResult> Index(string searchitem)
         {
-            
-            List<Student> Students= await unit.StudentRepo.SearchByName(searchitem);
+
+            List<Student> Students = await unit.StudentRepo.SearchByName(searchitem);
             List<StudentVM> StudentsVm = mapper.Map<List<StudentVM>>(Students);
-           if(!string.IsNullOrEmpty(searchitem))
+            if (!string.IsNullOrEmpty(searchitem))
             {
                 return PartialView("_StudentTable", StudentsVm);
             }
-            return  View(StudentsVm);
+            return View(StudentsVm);
         }
-        
-    }
+        public IActionResult Add()
+        {
+            return View();
+        }
+    } 
 }

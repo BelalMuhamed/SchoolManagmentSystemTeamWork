@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SchoolManagmentSystem.DAL.Extend;
 using SchoolManagmentSystem.DAL.Models;
+using SchoolManagmentSystemDAL.Models;
 
 namespace SchoolManagmentSystem.PL.Data
 {
@@ -19,6 +20,7 @@ namespace SchoolManagmentSystem.PL.Data
         public DbSet<Student> Students { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<UserExam> UserExams { get; set; }
+        public DbSet<ClassAndSubjects> classesAndSubjects { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
