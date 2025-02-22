@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Castle.Core.Resource;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SchoolManagmentSystem.DAL.Models;
@@ -10,6 +11,8 @@ using SchoolManagmentSystemDAL.ViewModels;
 
 namespace SchoolManagmentSystemPL.Controllers
 {
+    [Authorize(Roles = "Admin")]
+    
     public class StudentController : Controller
     {
         private readonly UnitofWork unit;
@@ -33,9 +36,11 @@ namespace SchoolManagmentSystemPL.Controllers
             }
             return View(StudentsVm);
         }
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
-            return View();
+            StudentVM student = new StudentVM();
+            student.Classes =await unit.ClassRepo.GetAll();
+            return View(student);
         }
     } 
 }

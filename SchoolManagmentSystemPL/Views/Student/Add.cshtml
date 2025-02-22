@@ -1,1 +1,83 @@
-﻿
+﻿@model StudentVM
+@{
+   
+    SelectList ClassesList = new SelectList(Model.Classes, "Id", "Name");
+}
+
+
+    <h1 class="ms-5 mt-5">Add Student</h1>
+    <form asp-controller="Student" asp-action="Add" method="post" class="w-75 m-auto ">
+        <label asp-for="StudentName"></label>
+        <input asp-for="StudentName" class="form-control" />
+        <span asp-validation-for="StudentName" style="color:red"></span>
+        <br />
+        <label asp-for="StudentEmail"></label>
+        <input class="form-control" asp-for="StudentEmail" />
+        <span asp-validation-for="StudentEmail" style="color:red"></span>
+
+        <br />
+
+        <label asp-for="PhoneNumber"></label>
+        <input class="form-control" asp-for="PhoneNumber" />
+        <span asp-validation-for="PhoneNumber" style="color:red"></span>
+
+        <br />
+
+       
+
+        <label asp-for="ClassId"></label>
+        <select asp-for="ClassId" asp-items="ClassesList">
+            <option value="0">Select Class</option>
+        </select>
+        <span asp-validation-for="ClassId" style="color:red"></span>
+
+    <br />
+
+    <label asp-for="Address"></label>
+    <input class="form-control" asp-for="Address" />
+    <span asp-validation-for="Address" style="color:red"></span>
+
+    <br />
+
+    <label asp-for="DateOfBirth"></label>
+    <input class="form-control" asp-for="DateOfBirth" type="date"  />
+    <span asp-validation-for="DateOfBirth" style="color:red"></span>
+    <br />
+    <div>
+        <label asp-for="gender">Gender</label>
+        <div class="d-flex">
+            @foreach (var gender in Enum.GetValues(typeof(Gender)))
+            {
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="gender" value="@gender" id="gender_@gender" />
+                    <label class="form-check-label" for="gender_@gender">@gender</label>
+                </div>
+            }
+        </div>
+        <span asp-validation-for="gender" style="color:red"></span>
+
+    </div>
+
+    <br />
+
+    <label asp-for="HireDate"></label>
+    <input class="form-control" asp-for="HireDate" type="date" />
+    <span asp-validation-for="HireDate" style="color:red"></span>
+
+    <br />
+
+    
+   
+
+    
+
+
+        <input type="submit" value="Save" class="btn btn-dark fst-italic fs-1 m-5" />
+    </form>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,4 +1,5 @@
 ﻿using SchoolManagmentSystem.DAL.Extend;
+using SchoolManagmentSystem.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace SchoolManagmentSystemDAL.ViewModels
         public string StudentEmail { get; set; }
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; } = DateTime.Now.Date;
         public int Age
         {
             get
@@ -33,9 +34,11 @@ namespace SchoolManagmentSystemDAL.ViewModels
         }
 
         public Gender gender { get; set; }
-        public DateTime HireDate { get; set; }
-        public string ParentName { get; set; }
+        public DateTime HireDate { get; set; } = DateTime.Now.Date;
+       
         public int? ClassId { get; set; }
         public string? ClassName { get; set; }
+        public string Password { get; set; }
+        public virtual List<Class>? Classes { get; set; }
     }
 }

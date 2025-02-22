@@ -1,9 +1,14 @@
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagmentSystem.PL.Models;
 
 namespace SchoolManagmentSystem.PL.Controllers
 {
+    [Authorize(Roles = "Admin,Student,Teacher")]
+
+
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

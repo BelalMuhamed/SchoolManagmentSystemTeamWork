@@ -13,6 +13,7 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
     {
         private readonly ApplicationDbContext context;
          StudentRepo studentRepo;
+         GenericRepo<Class>classRepo;
 
         public UnitofWork(ApplicationDbContext context)
         {
@@ -26,6 +27,15 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
                 if (studentRepo == null)
                     studentRepo = new StudentRepo(context);
                 return studentRepo;
+            }
+        }
+        public GenericRepo<Class> ClassRepo
+        {
+            get
+            {
+                if (classRepo == null)
+                    classRepo = new GenericRepo<Class>(context);
+                return classRepo;
             }
         }
         public async  Task<int> save()

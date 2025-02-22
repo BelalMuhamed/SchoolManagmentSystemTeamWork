@@ -23,9 +23,10 @@ namespace SchoolManagmentSystemBLL.Mapping
                 desc.DateOfBirth = src.User.DateOfBirth;
                 desc.gender = src.User.Gender;
                 desc.HireDate = src.User.HireDate;
-                src.ParentName = src.ParentName;
+              
                 src.ClassId = src.ClassId;
                 desc.ClassName = src.Class.Name;
+                desc.Password = src.User.PasswordHash;
             }).ReverseMap();
         }
     }

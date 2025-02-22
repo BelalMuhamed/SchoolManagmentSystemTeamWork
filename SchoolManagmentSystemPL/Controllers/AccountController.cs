@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagmentSystem.DAL.Extend;
 using SchoolManagmentSystem.DAL.Models;
@@ -23,26 +24,26 @@ namespace SchoolManagmentSystemPL.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task< IActionResult> register(RegisterViewModel model )
+        public async Task<IActionResult> register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
                 ApplicationUser app = new ApplicationUser()
                 {
-                    UserName=model.Name,
-                    Address=model.Address,
-                    PasswordHash=model.Password
+                    UserName = model.Name,
+                    Address = model.Address,
+                    PasswordHash = model.Password
                 };
-                IdentityResult result= await user.CreateAsync(app, model.Password);
+                IdentityResult result = await user.CreateAsync(app, model.Password);
                 if (result.Succeeded)
                 {
-                    await user.AddToRoleAsync(app, "Admin");
-                   await sign.SignInAsync(app, false);
-                   return RedirectToAction("login", "Account");
+                    await user.AddToRoleAsync(app, "Student");
+                    await sign.SignInAsync(app, false);
+                    return RedirectToAction("login", "Account");
                 }
                 else
                 {
-                    foreach(var i in result.Errors)
+                    foreach (var i in result.Errors)
                     {
                         ModelState.AddModelError("", i.Description);
                     }
@@ -56,37 +57,35 @@ namespace SchoolManagmentSystemPL.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task< IActionResult> login(LoginViewModel model )
+        public async Task<IActionResult> login(LoginViewModel model)
         {
             if (ModelState.IsValid == true)
             {
                 ApplicationUser result = await user.FindByNameAsync(model.Name);
                 if (result != null)
                 {
-                 bool found =  await user.CheckPasswordAsync(result, model.Password);
+                    bool found = await user.CheckPasswordAsync(result, model.Password);
                     if (found)
                     {
-                       await sign.SignInAsync(result, model.RememberMe);
+                        await sign.SignInAsync(result, model.RememberMe);
                         if (User.IsInRole("Admin"))
                         {
-                        return RedirectToAction("Index", "Student");
+                            return RedirectToAction("Index", "Home");
                         }
-                        else
+                        else if (User.IsInRole("Student"))
                         {
-                            return RedirectToAction("register", "Account");
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else if (User.IsInRole("Teacher"))
+                        {
+
                         }
                     }
                 }
                 ModelState.AddModelError("", "enter invalid name or password y basha");
             }
-            return View("login",model);
+            return View("login", model);
         }
-
-        ////////not improtant/////////////////////  
-        //public async Task< IActionResult> logout()
-        //{
-        //   await sign.SignOutAsync();
-        //   return View("login");
-        //}
+       
     }
 }

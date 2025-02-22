@@ -18,10 +18,8 @@ namespace SchoolManagmentSystem.DAL.Models
         [ForeignKey("UserId")]
         public virtual ApplicationUser? User { get; set; }
 
-        [Required]
-        [MaxLength(255)]
-        public string ParentName { get; set; } = null!;
-
+        
+      
         [Required]
         public int ClassId { get; set; }
 
