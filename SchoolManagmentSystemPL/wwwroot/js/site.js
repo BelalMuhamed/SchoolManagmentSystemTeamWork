@@ -25,3 +25,34 @@ $(document).ready(function () {
         }
     });
 });
+
+//function confirmDelete(userId) {
+//    Swal.fire({
+//        title: "Are you sure?",
+//        text: "You won't be able to revert this!",
+//        icon: "warning",
+//        showCancelButton: true,
+//        confirmButtonColor: "#d33",
+//        cancelButtonColor: "#3085d6",
+//        confirmButtonText: "Yes, delete it!"
+//    }).then((result) => {
+//        if (result.isConfirmed) {
+//            $.ajax({
+//                url: '/Student/Delete?UserId=' + userId, 
+//                type: 'DELETE', 
+//                success: function (response) {
+//                    if (response.success) {
+//                        Swal.fire("Deleted!", response.message, "success").then(() => {
+//                            $("#row-" + userId).remove(); 
+//                        });
+//                    } else {
+//                        Swal.fire("Error!", response.message, "error");
+//                    }
+//                },
+//                error: function () {
+//                    Swal.fire("Error!", "Something went wrong.", "error");
+//                }
+//            });
+//        }
+//    });
+//}

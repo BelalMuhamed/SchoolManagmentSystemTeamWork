@@ -11,6 +11,7 @@ using SchoolManagmentSystemBLL.GenericRepo;
 using SchoolManagmentSystemBLL.Mapping;
 using SchoolManagmentSystemBLL.UnitOfWork;
 using SchoolManagmentSystemDAL.ViewModels;
+using System.Threading.Tasks;
 
 namespace SchoolManagmentSystemPL.Controllers
 {
@@ -135,5 +136,50 @@ namespace SchoolManagmentSystemPL.Controllers
             return View("EditStudent", eDitedStudent);
 
         }
+        //[HttpDelete]
+        //public async Task<IActionResult> Delete(string UserId)
+        //{
+        //    Student DeletedStudent = await unit.StudentRepo.GetByIDAsync(UserId);
+        //    if (DeletedStudent == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+
+        //    DeletedStudent.User.IsDeleted = false;
+        //    unit.StudentRepo.Update(DeletedStudent);
+        //    int flag = await unit.save();
+        //    if(flag>0)
+        //    {
+        //        TempData["SuccessMessage"] = "Item deleted successfully!";
+        //        return RedirectToAction("Index");
+        //    }
+        //    TempData["ErrorMessage"] = "Error: Unable to delete the student. Please try again.";
+        //    return RedirectToAction("Index"); 
+        //}
+        [HttpDelete]
+        public async Task<IActionResult> Delete(string UserId)
+        {
+            Student DeletedStudent = await unit.StudentRepo.GetByIDAsync(UserId);
+            if (DeletedStudent == null)
+            {
+                return Json(new { success = false, message = "Student not found" });
+            }
+
+            DeletedStudent.User.IsDeleted = true;
+            unit.StudentRepo.Update(DeletedStudent);
+            int flag = await unit.save();
+
+            if (flag > 0)
+            {
+
+                return Json(new { success = true, message = "Student deleted successfully!" });
+                
+            }
+
+            return Json(new { success = false, message = "Error: Unable to delete student" });
+        }
+
+
     }
 }
