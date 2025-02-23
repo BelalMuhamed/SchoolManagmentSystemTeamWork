@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SchoolManagmentSystemDAL.ViewModels;
+using SchoolManagmentSystem.DAL.Extend;
 
 
 namespace SchoolManagmentSystemBLL.Mapping
@@ -15,7 +16,7 @@ namespace SchoolManagmentSystemBLL.Mapping
         public Mapping()
         {
             CreateMap<Student, StudentVM>().AfterMap((src, desc) => {
-                desc.StudentId = src.UserId;
+                
                 desc.StudentName = src.User.UserName;
                 desc.StudentEmail = src.User.Email;
                 desc.PhoneNumber = src.User.PhoneNumber;
@@ -28,6 +29,23 @@ namespace SchoolManagmentSystemBLL.Mapping
                 desc.ClassName = src.Class.Name;
                 desc.Password = src.User.PasswordHash;
             }).ReverseMap();
+            CreateMap<ApplicationUser, StudentVM>().AfterMap((src, desc) => {
+
+                desc.StudentName = src.UserName;
+                desc.StudentEmail = src.Email;
+                desc.PhoneNumber = src.PhoneNumber;
+                desc.Address = src.Address;
+                desc.DateOfBirth = src.DateOfBirth;
+                desc.gender = src.Gender;
+                desc.HireDate = src.HireDate;
+                desc.Password = src.PasswordHash;
+                
+
+               
+            }).ReverseMap().ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.StudentName))
+    .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.StudentEmail))
+    .ForMember(dest => dest.PasswordHash, opt => opt.Ignore()); ;
+            
         }
     }
 }

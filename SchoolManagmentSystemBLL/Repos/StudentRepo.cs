@@ -18,12 +18,16 @@ namespace SchoolManagmentSystemBLL.GenericRepo
 
         public StudentRepo( ApplicationDbContext context) : base(context)
         {
-          
+            
         }
+
+       
+
         public async Task<List<Student>> SearchByName(string SearchItem)
         {
-            List<Student> SearchedStudents = await context.Students.Where(s => (string.IsNullOrEmpty(SearchItem) || s.User.UserName.Trim().ToLower().Contains(SearchItem.Trim().ToLower()))).ToListAsync();
+            List<Student> SearchedStudents = await context.Students.Where(s => (string.IsNullOrEmpty(SearchItem) || s.User.UserName.Trim().ToLower().Contains(SearchItem.Trim().ToLower()))&& s.User.IsDeleted == false).ToListAsync();
             return SearchedStudents;
         }
+       
     }
 }

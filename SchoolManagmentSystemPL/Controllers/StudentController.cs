@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Castle.Core.Resource;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SchoolManagmentSystem.DAL.Extend;
 using SchoolManagmentSystem.DAL.Models;
 using SchoolManagmentSystemBLL.GenericRepo;
 using SchoolManagmentSystemBLL.Mapping;
@@ -41,6 +43,44 @@ namespace SchoolManagmentSystemPL.Controllers
             StudentVM student = new StudentVM();
             student.Classes =await unit.ClassRepo.GetAll();
             return View(student);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Add(StudentVM studentvm)
+        {
+           if(ModelState.IsValid)
+            {
+                ApplicationUser AddedUser = mapper.Map<ApplicationUser>(studentvm);
+                AddedUser.PasswordHash = studentvm.Password;
+               
+                IdentityResult result = await unit.user.CreateAsync(AddedUser, AddedUser.PasswordHash);
+                if (result.Succeeded)
+                {
+                    await unit.user.AddToRoleAsync(AddedUser, "Student");
+                   
+                    Student AddedS = new Student()
+                    {
+                        UserId = AddedUser.Id,
+                        ClassId = studentvm.ClassId
+                    };
+                    await unit.StudentRepo.Add(AddedS);
+                   int flag= await unit.save();
+                    if(flag>0)
+                    {
+                        return RedirectToAction("Index", "Student");
+
+                    }
+                }
+                else
+                {
+                    foreach (var i in result.Errors)
+                    {
+                        ModelState.AddModelError("", i.Description);
+                    }
+                }
+
+            }
+           studentvm.Classes =  await unit.ClassRepo.GetAll();
+            return View("Add", studentvm);
         }
     } 
 }

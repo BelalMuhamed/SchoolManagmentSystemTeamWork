@@ -7,6 +7,7 @@
 
     <h1 class="ms-5 mt-5">Add Student</h1>
     <form asp-controller="Student" asp-action="Add" method="post" class="w-75 m-auto ">
+        <div asp-validation-summary="All" class="text-danger"></div>
         <label asp-for="StudentName"></label>
         <input asp-for="StudentName" class="form-control" />
         <span asp-validation-for="StudentName" style="color:red"></span>
@@ -26,7 +27,7 @@
        
 
         <label asp-for="ClassId"></label>
-        <select asp-for="ClassId" asp-items="ClassesList">
+        <select asp-for="ClassId" asp-items="ClassesList" class="form-control">
             <option value="0">Select Class</option>
         </select>
         <span asp-validation-for="ClassId" style="color:red"></span>
@@ -66,10 +67,17 @@
 
     <br />
 
-    
-   
 
-    
+    <label asp-for="Password"></label>
+    <input class="form-control" asp-for="Password" type="password" />
+    <span asp-validation-for="Password" style="color:red"></span>
+
+    <br />
+
+
+    <label asp-for="Password"></label>
+    <input class="form-control" asp-for="ConfirmPassword" type="password" />
+    <span asp-validation-for="ConfirmPassword" style="color:red"></span>
 
 
         <input type="submit" value="Save" class="btn btn-dark fst-italic fs-1 m-5" />

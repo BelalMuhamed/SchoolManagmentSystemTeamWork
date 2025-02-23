@@ -1,4 +1,6 @@
-﻿using SchoolManagmentSystem.DAL.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using SchoolManagmentSystem.DAL.Extend;
+using SchoolManagmentSystem.DAL.Models;
 using SchoolManagmentSystem.PL.Data;
 using SchoolManagmentSystemBLL.GenericRepo;
 using System;
@@ -12,13 +14,16 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
     public  class UnitofWork
     {
         private readonly ApplicationDbContext context;
-         StudentRepo studentRepo;
+        public UserManager<ApplicationUser> user;
+        public SignInManager<ApplicationUser> sign;
+        StudentRepo studentRepo;
          GenericRepo<Class>classRepo;
 
-        public UnitofWork(ApplicationDbContext context)
+        public UnitofWork(ApplicationDbContext context,UserManager<ApplicationUser> user, SignInManager<ApplicationUser> sign)
         {
             this.context = context;
-            
+            this.user = user;
+            this.sign = sign;
         }
         public StudentRepo StudentRepo
         {

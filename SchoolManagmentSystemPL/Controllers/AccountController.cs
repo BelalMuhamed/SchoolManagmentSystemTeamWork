@@ -56,7 +56,7 @@ namespace SchoolManagmentSystemPL.Controllers
             return View("login");
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
+     
         public async Task<IActionResult> login(LoginViewModel model)
         {
             if (ModelState.IsValid == true)
@@ -86,6 +86,13 @@ namespace SchoolManagmentSystemPL.Controllers
             }
             return View("login", model);
         }
-       
+
+        [HttpPost]
+
+        public async Task<IActionResult> logout()
+        {
+            await sign.SignOutAsync();
+            return RedirectToAction("Login", "Account");
+        }
     }
 }
