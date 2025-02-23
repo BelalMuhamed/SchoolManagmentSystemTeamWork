@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolManagmentSystem.PL.Data;
 
@@ -11,9 +12,11 @@ using SchoolManagmentSystem.PL.Data;
 namespace SchoolManagmentSystem.PL.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250222142228_Mohamed01")]
+    partial class Mohamed01
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -189,9 +192,6 @@ namespace SchoolManagmentSystem.PL.Data.Migrations
 
                     b.Property<DateTime>("HireDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -424,6 +424,11 @@ namespace SchoolManagmentSystem.PL.Data.Migrations
                     b.Property<int>("ClassId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ParentName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.HasKey("UserId");
 
                     b.HasIndex("ClassId");
@@ -528,21 +533,6 @@ namespace SchoolManagmentSystem.PL.Data.Migrations
                     b.HasIndex("ExamId");
 
                     b.ToTable("UserExams");
-                });
-
-            modelBuilder.Entity("SchoolManagmentSystemDAL.Models.ClassAndSubjects", b =>
-                {
-                    b.Property<int>("classId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SubjectId")
-                        .HasColumnType("int");
-
-                    b.HasKey("classId", "SubjectId");
-
-                    b.HasIndex("SubjectId");
-
-                    b.ToTable("classesAndSubjects");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -801,30 +791,6 @@ namespace SchoolManagmentSystem.PL.Data.Migrations
                     b.Navigation("Exam");
                 });
 
-            modelBuilder.Entity("SchoolManagmentSystemDAL.Models.ClassAndSubjects", b =>
-                {
-                    b.HasOne("SchoolManagmentSystem.DAL.Models.Subject", "Subject")
-                        .WithMany("classsubjesct")
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SchoolManagmentSystem.DAL.Models.Class", "Class")
-                        .WithMany("classsubjesct")
-                        .HasForeignKey("classId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Class");
-
-                    b.Navigation("Subject");
-                });
-
-            modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.Class", b =>
-                {
-                    b.Navigation("classsubjesct");
-                });
-
             modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.Exam", b =>
                 {
                     b.Navigation("Questions");
@@ -838,8 +804,6 @@ namespace SchoolManagmentSystem.PL.Data.Migrations
             modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.Subject", b =>
                 {
                     b.Navigation("Teachers");
-
-                    b.Navigation("classsubjesct");
                 });
 #pragma warning restore 612, 618
         }

@@ -14,8 +14,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(op => op.UseLazyLoadingProxi
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-        .AddEntityFrameworkStores<ApplicationDbContext>()
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(op =>
+{
+    op.Password.RequireUppercase = false;
+    op.Password.RequireLowercase = false;
+    op.Password.RequiredLength = 5;
+    op.Password.RequireDigit = false;
+}).AddEntityFrameworkStores<ApplicationDbContext>()
         .AddDefaultTokenProviders();
 builder.Services.AddRazorPages(); 
 builder.Services.AddControllersWithViews();
@@ -45,7 +50,7 @@ app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
+    pattern: "{controller=Account}/{action=login}/{id?}")
     .WithStaticAssets();
 
 app.MapRazorPages()
