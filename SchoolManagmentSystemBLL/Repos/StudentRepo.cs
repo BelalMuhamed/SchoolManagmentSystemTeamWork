@@ -28,6 +28,13 @@ namespace SchoolManagmentSystemBLL.GenericRepo
             List<Student> SearchedStudents = await context.Students.Where(s => (string.IsNullOrEmpty(SearchItem) || s.User.UserName.Trim().ToLower().Contains(SearchItem.Trim().ToLower()))&& s.User.IsDeleted == false).ToListAsync();
             return SearchedStudents;
         }
-       
+        public async Task<Student> GetByName(string studentName)
+        {
+             return await context.Students.FirstOrDefaultAsync(s => s.User.UserName == studentName);
+        }
+        public async Task<Student> GetByIDAsync(string Id)
+        {
+            return await context.Students.FirstOrDefaultAsync(s => s.UserId == Id);
+        }
     }
 }

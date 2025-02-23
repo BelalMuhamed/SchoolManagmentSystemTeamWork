@@ -16,7 +16,7 @@ namespace SchoolManagmentSystemBLL.Mapping
         public Mapping()
         {
             CreateMap<Student, StudentVM>().AfterMap((src, desc) => {
-                
+                desc.UserId = src.UserId;
                 desc.StudentName = src.User.UserName;
                 desc.StudentEmail = src.User.Email;
                 desc.PhoneNumber = src.User.PhoneNumber;
@@ -30,6 +30,7 @@ namespace SchoolManagmentSystemBLL.Mapping
                 desc.Password = src.User.PasswordHash;
             }).ReverseMap();
             CreateMap<ApplicationUser, StudentVM>().AfterMap((src, desc) => {
+                desc.UserId = src.Id;
 
                 desc.StudentName = src.UserName;
                 desc.StudentEmail = src.Email;
@@ -43,8 +44,23 @@ namespace SchoolManagmentSystemBLL.Mapping
 
                
             }).ReverseMap().ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.StudentName))
-    .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.StudentEmail))
-    .ForMember(dest => dest.PasswordHash, opt => opt.Ignore()); ;
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.StudentEmail))
+                .ForMember(dest => dest.PasswordHash, opt => opt.Ignore()); ;
+
+            CreateMap<Student, EditStudentVM>().AfterMap((src, desc) => {
+                desc.StudentId = src.UserId;
+                desc.StudentName = src.User.UserName;
+                desc.StudentEmail = src.User.Email;
+                desc.PhoneNumber = src.User.PhoneNumber;
+                desc.Address = src.User.Address;
+                desc.DateOfBirth = src.User.DateOfBirth;
+                desc.gender = src.User.Gender;
+                desc.HireDate = src.User.HireDate;
+
+                src.ClassId = src.ClassId;
+                desc.ClassName = src.Class.Name;
+               
+            }).ReverseMap();
             
         }
     }

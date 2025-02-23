@@ -1,9 +1,9 @@
 ﻿@model List<StudentVM>
 <h1 class=" p-5 text-center box-shadow">All Students </h1>
-    
-        <div class="mb-3 mt-2 d-flex justify-content-lg-between ">
+
+<div class="mb-3 mt-2 d-flex justify-content-lg-between ">
             <input type="text" class="form-control w-25" id="searchinput" placeholder="search by student name "/>
-    <a asp-controller="Student" asp-action="Add" class="btn btn-dark w-25">Add New Student</a>
+            <a asp-controller="Student" asp-action="Add" class="btn btn-dark w-25">Add New Student</a>
 
         </div>
       
@@ -22,7 +22,8 @@
     <td>Date of Enrollment</td>
     
     <td>Class</td>
-
+    <td>Edit</td>
+   
     </thead>
 
     <tbody id="result">
@@ -31,3 +32,8 @@
 
 </table>
 
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

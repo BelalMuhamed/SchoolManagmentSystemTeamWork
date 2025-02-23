@@ -10,7 +10,8 @@
         <td>@student.Age</td>
         <td>@student.gender</td>
         <td>@student.HireDate.ToString("yyyy-MM-dd")</td>
-      
         <td>@student.ClassName</td>
+        <td class="text-center"><a asp-controller="Student" asp-action="Edit" asp-route-UserId="@student.UserId" class="text-info"><i class="fa-solid fa-pen-to-square"></i></a></td>
+        
     </tr>
 }
