@@ -1,4 +1,5 @@
 ﻿@model List<StudentVM>
+
 @foreach (StudentVM student in Model)
 {
     <tr>
@@ -10,7 +11,46 @@
         <td>@student.Age</td>
         <td>@student.gender</td>
         <td>@student.HireDate.ToString("yyyy-MM-dd")</td>
-      
         <td>@student.ClassName</td>
+        <td class="text-center"><a asp-controller="Student" asp-action="Edit" asp-route-UserId="@student.UserId" class="text-info"><i class="fa-solid fa-pen-to-square"></i></a></td>
+        <td class="text-center">
+            <a href="javascript:void(0);" class="text-danger" onclick="confirmDelete('@student.UserId')">
+                <i class="fa-solid fa-trash"></i>
+            </a>
+        </td>
+
     </tr>
 }
+<script>
+    function confirmDelete(userId) {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/Student/Delete?UserId=' + userId,
+                    type: 'DELETE',
+                    success: function (response) {
+                        if (response.success) {
+                            Swal.fire("Deleted!", response.message, "success").then(() => {
+                               
+                                window.location.href = "/Student/Index";
+                            });
+                        } else {
+                            Swal.fire("Error!", response.message, "error");
+                        }
+                    },
+                    error: function () {
+                        Swal.fire("Error!", "Something went wrong.", "error");
+                    }
+                });
+            }
+        });
+    }
+</script>

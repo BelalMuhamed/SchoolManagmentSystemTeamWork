@@ -15,8 +15,8 @@ namespace SchoolManagmentSystemBLL.Validation
         {
             if (value is DateTime dob)
             {
-                DateTime minDate = new DateTime(2008, 1, 1);
-                DateTime maxDate = DateTime.Now.Date; 
+                DateTime minDate = new DateTime(2007, 1, 1);
+                DateTime maxDate = DateTime.Now.Date.AddYears(-7); 
 
                 if (dob < minDate)
                 {
