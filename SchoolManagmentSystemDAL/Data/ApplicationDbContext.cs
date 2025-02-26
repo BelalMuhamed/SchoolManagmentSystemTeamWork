@@ -10,7 +10,9 @@ namespace SchoolManagmentSystem.PL.Data
     {
         public DbSet<ClassLesson> ClassLessons { get; set; }
         public DbSet<StudentDegree> StudentDegrees { get; set; }
-        public DbSet<Attendance> Attendances { get; set; }
+        public DbSet<TeacherAttendance> TeacherAttendances { get; set; }
+        public DbSet<StudentAttendance> StudentAttendances { get; set; }
+
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<ClassExam> ClassExams { get; set; }

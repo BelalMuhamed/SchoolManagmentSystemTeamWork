@@ -30,7 +30,6 @@ namespace SchoolManagmentSystemPL.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string searchitem)
         {
-
             List<Student> Students = await unit.StudentRepo.SearchByName(searchitem);
             List<StudentVM> StudentsVm = mapper.Map<List<StudentVM>>(Students);
             if (!string.IsNullOrEmpty(searchitem))
@@ -39,7 +38,6 @@ namespace SchoolManagmentSystemPL.Controllers
             }
             return View(StudentsVm);
         }
-
         public async Task<IActionResult> Add()
         {
             StudentVM student = new StudentVM();

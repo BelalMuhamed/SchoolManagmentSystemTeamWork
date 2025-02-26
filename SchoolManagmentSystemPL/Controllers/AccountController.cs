@@ -5,7 +5,6 @@ using SchoolManagmentSystem.DAL.Extend;
 using SchoolManagmentSystem.DAL.Models;
 using SchoolManagmentSystemDAL.ViewModels;
 
-
 namespace SchoolManagmentSystemPL.Controllers
 {
 
@@ -23,6 +22,7 @@ namespace SchoolManagmentSystemPL.Controllers
         {
             return View("register");
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> register(RegisterViewModel model)
@@ -38,6 +38,7 @@ namespace SchoolManagmentSystemPL.Controllers
                 IdentityResult result = await user.CreateAsync(app, model.Password);
                 if (result.Succeeded)
                 {
+                    await user.AddToRoleAsync(app, "Teacher");
                     await user.AddToRoleAsync(app, "Admin");
                     await sign.SignInAsync(app, false);
                     return RedirectToAction("login", "Account");
@@ -79,7 +80,7 @@ namespace SchoolManagmentSystemPL.Controllers
                         }
                         else if (User.IsInRole("Teacher"))
                         {
-
+                            return RedirectToAction("register", "Account");
                         }
                     }
                 }

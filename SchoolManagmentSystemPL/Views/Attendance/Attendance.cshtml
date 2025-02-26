@@ -1,0 +1,18 @@
+﻿@using SchoolManagmentSystem.DAL.Models
+@model List<ApplicationUser>
+<table class="table table-bordered table-hover">
+    <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    </tr>
+    @foreach(var i in Model){
+        <tr>
+        <td>@i.UserName</td>
+        <td>@i.UserName</td>
+        <td>@i.UserName</td>
+        <td>@i.UserName</td>
+        </tr>
+    }
+</table>

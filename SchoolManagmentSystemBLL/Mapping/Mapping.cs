@@ -9,7 +9,6 @@ using SchoolManagmentSystemDAL.ViewModels;
 using SchoolManagmentSystem.DAL.Extend;
 using Microsoft.AspNetCore.Routing.Constraints;
 
-
 namespace SchoolManagmentSystemBLL.Mapping
 {
     public class Mapping:Profile
