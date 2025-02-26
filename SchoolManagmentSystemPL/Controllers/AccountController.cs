@@ -8,6 +8,7 @@ using SchoolManagmentSystemDAL.ViewModels;
 
 namespace SchoolManagmentSystemPL.Controllers
 {
+
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> user;
@@ -37,7 +38,7 @@ namespace SchoolManagmentSystemPL.Controllers
                 IdentityResult result = await user.CreateAsync(app, model.Password);
                 if (result.Succeeded)
                 {
-                    await user.AddToRoleAsync(app, "Student");
+                    await user.AddToRoleAsync(app, "Admin");
                     await sign.SignInAsync(app, false);
                     return RedirectToAction("login", "Account");
                 }

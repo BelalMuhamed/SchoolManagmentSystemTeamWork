@@ -3,6 +3,7 @@ using SchoolManagmentSystem.DAL.Extend;
 using SchoolManagmentSystem.DAL.Models;
 using SchoolManagmentSystem.PL.Data;
 using SchoolManagmentSystemBLL.GenericRepo;
+using SchoolManagmentSystemBLL.Repos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +18,8 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
         public UserManager<ApplicationUser> user;
         public SignInManager<ApplicationUser> sign;
         StudentRepo studentRepo;
-         GenericRepo<Class>classRepo;
-
+        ClassRepo classRepo;
+        
         public UnitofWork(ApplicationDbContext context,UserManager<ApplicationUser> user, SignInManager<ApplicationUser> sign)
         {
             this.context = context;
@@ -34,12 +35,12 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
                 return studentRepo;
             }
         }
-        public GenericRepo<Class> ClassRepo
+        public ClassRepo ClassRepo
         {
             get
             {
                 if (classRepo == null)
-                    classRepo = new GenericRepo<Class>(context);
+                    classRepo = new ClassRepo(context);
                 return classRepo;
             }
         }

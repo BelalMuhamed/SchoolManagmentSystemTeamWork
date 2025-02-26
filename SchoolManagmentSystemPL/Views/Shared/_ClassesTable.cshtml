@@ -1,0 +1,24 @@
+﻿@model List<ClassVM>
+@foreach (ClassVM Class in Model)
+{
+    <tr>
+        <td>@Class.ClassName </td>
+        <td>@Class.ManagerName </td>
+        <td>
+            <ul class="list-unstyled"> 
+                @foreach (Subject subject in Class.Subjects)
+                {
+                   <li>
+                        @subject.Name
+                   </li>
+                }
+            </ul> 
+        </td>
+
+        <td class="text-center"><a asp-controller="Student" asp-action="Edit" asp-route-UserId="@Class.ClassId" class="text-info"><i class="fa-solid fa-pen-to-square"></i></a></td>
+        <td class="text-center">
+            <a asp-controller="Student" asp-action="Edit" asp-route-UserId="@Class.ClassId" class="text-info"> <i class="fa-solid fa-trash"></i></a>
+        </td>
+
+    </tr>
+}
