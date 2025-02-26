@@ -1,0 +1,84 @@
+﻿@model TeacherVM
+@{
+    SelectList ClassesList = new SelectList(Model.Classes, "Id", "Name");
+}
+
+<h1 class="ms-5 mt-5">Add Teacher</h1>
+<form asp-controller="Teacher" asp-action="Add" method="post" class="w-75 m-auto ">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <label asp-for="TeacherName"></label>
+    <input asp-for="TeacherName" class="form-control" />
+    <span asp-validation-for="TeacherName" style="color:red"></span>
+    <br />
+
+    <label asp-for="TeacherEmail"></label>
+    <input class="form-control" asp-for="TeacherEmail" />
+    <span asp-validation-for="TeacherEmail" style="color:red"></span>
+    <br />
+
+    <label asp-for="PhoneNumber"></label>
+    <input class="form-control" asp-for="PhoneNumber" />
+    <span asp-validation-for="PhoneNumber" style="color:red"></span>
+    <br />
+
+
+    <br />
+
+    <label asp-for="Address"></label>
+    <input class="form-control" asp-for="Address" />
+    <span asp-validation-for="Address" style="color:red"></span>
+    <br />
+
+    @* <label asp-for="DateOfBirth"></label> *@
+    @* <input class="form-control" asp-for="DateOfBirth" type="date" /> *@
+    @* <span asp-validation-for="DateOfBirth" style="color:red"></span> *@
+    @* <br /> *@
+
+    <div>
+        <label asp-for="gender">Gender</label>
+        <div class="d-flex">
+            @foreach (var gender in Enum.GetValues(typeof(Gender)))
+            {
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="gender" value="@gender" id="gender_@gender" />
+                    <label class="form-check-label" for="gender_@gender">@gender</label>
+                </div>
+            }
+        </div>
+        <span asp-validation-for="gender" style="color:red"></span>
+    </div>
+    <br />
+
+    <label asp-for="HireDate"></label> 
+    <input class="form-control" asp-for="HireDate" type="date" /> 
+    <span asp-validation-for="HireDate" style="color:red"></span> 
+    <br /> 
+
+
+    <label asp-for="SubjectName"></label>
+    <select asp-for="SubjectId" class="form-control"
+            asp-items="@(new SelectList(Model.Subjects, "Id", "Name"))">
+        <option value="">select supject</option>
+    </select>
+    <span asp-validation-for="SubjectId" style="color:red"></span>
+
+    <br />
+    <label asp-for="Password"></label>
+    <input class="form-control" asp-for="Password" type="password" />
+    <span asp-validation-for="Password" style="color:red"></span>
+    <br />
+
+    <label asp-for="ConfirmPassword"></label>
+    <input class="form-control" asp-for="ConfirmPassword" type="password" />
+    <span asp-validation-for="ConfirmPassword" style="color:red"></span>
+    <br />
+
+    <input type="submit" value="Add" class="btn btn-dark fst-italic fs-5 mt-5 ps-5 pe-5 pt-2 pb-2" />
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
