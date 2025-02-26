@@ -13,7 +13,7 @@ namespace SchoolManagmentSystem.DAL.Models
     public class Student
     {
         [Key]
-        public string UserId { get; set; } = null!;
+        public string UserId { get; set; } 
 
         [ForeignKey("UserId")]
         public virtual ApplicationUser? User { get; set; }
