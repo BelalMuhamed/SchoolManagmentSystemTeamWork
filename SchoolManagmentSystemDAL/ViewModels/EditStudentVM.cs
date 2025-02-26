@@ -12,7 +12,7 @@ namespace SchoolManagmentSystemDAL.ViewModels
 {
    public class EditStudentVM
     {
-        public string StudentId { get; set; }
+        public string? StudentId { get; set; }
         public string StudentName { get; set; }
         [Required(ErrorMessage = "Email is required.")]
         [EmailAddress(ErrorMessage = "Invalid email format.")]

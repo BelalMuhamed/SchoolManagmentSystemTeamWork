@@ -8,7 +8,7 @@
 <h1 class="ms-5 mt-5">Update @Model.StudentName Data</h1>
 <form asp-controller="Student" asp-action="Edit" method="post" class="w-75 m-auto ">
     <div asp-validation-summary="All" class="text-danger"></div>
-    <input type="hidden" asp-for="StudentId" />
+   
     <label asp-for="StudentName"></label>
     <input asp-for="StudentName" class="form-control" />
     <span asp-validation-for="StudentName" style="color:red"></span>

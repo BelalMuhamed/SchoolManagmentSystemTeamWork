@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SchoolManagmentSystemDAL.Models;
 
 namespace SchoolManagmentSystem.DAL.Models 
 { 
@@ -24,5 +25,7 @@ namespace SchoolManagmentSystem.DAL.Models
 
         [ForeignKey("SubjectId")]
         public virtual Subject? Subject { get; set; }
+     
+
     }
 }

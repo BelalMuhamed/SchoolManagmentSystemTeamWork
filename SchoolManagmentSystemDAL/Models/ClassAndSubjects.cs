@@ -17,7 +17,9 @@ namespace SchoolManagmentSystemDAL.Models
         [ForeignKey("classId")]
         public virtual Class Class { get; set; }
         [ForeignKey("SubjectId")]
-
         public virtual Subject Subject { get; set; }
+
+       
+
     }
 }

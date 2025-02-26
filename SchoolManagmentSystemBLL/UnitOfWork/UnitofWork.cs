@@ -18,9 +18,8 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
         public UserManager<ApplicationUser> user;
         public SignInManager<ApplicationUser> sign;
         StudentRepo studentRepo;
-         GenericRepo<Class>classRepo;
-        AttendanceRepo techattendance;
-
+        ClassRepo classRepo;
+        
         public UnitofWork(ApplicationDbContext context,UserManager<ApplicationUser> user, SignInManager<ApplicationUser> sign)
         {
             this.context = context;
@@ -36,12 +35,12 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
                 return studentRepo;
             }
         }
-        public GenericRepo<Class> ClassRepo
+        public ClassRepo ClassRepo
         {
             get
             {
                 if (classRepo == null)
-                    classRepo = new GenericRepo<Class>(context);
+                    classRepo = new ClassRepo(context);
                 return classRepo;
             }
         }
