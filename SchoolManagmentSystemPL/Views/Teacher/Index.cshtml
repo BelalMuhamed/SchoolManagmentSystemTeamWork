@@ -1,0 +1,36 @@
+﻿@model List<TeacherVM>
+
+<h1 class="p-5 text-center box-shadow">All Teachers</h1>
+
+<div class="mb-3 mt-2 d-flex justify-content-lg-between ">
+    <input type="text" class="form-control w-25" id="searchinput" placeholder="search by teacher name " />
+    <a asp-controller="Teacher" asp-action="Add" class="btn btn-dark w-25">Add New Teacher</a>
+</div>
+
+<table class="table table-bordered table-hover w-100 m-auto mb-5 ">
+    <thead>
+    <td>Name</td>
+    <td>Email</td>
+    <td>Phone</td>
+    <td>Address</td>
+    <td>Date Of Birth</td>
+    <td>Age</td>
+    <td>Gender</td>
+    <td>Hire Date</td>
+    <td>Subject</td>
+    <td>Edit</td>
+    <td>Delete</td
+    
+
+    </thead>
+
+    <tbody id="result">
+        <partial name="_TeacherTable" model="@Model"></partial>
+    </tbody>
+</table>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

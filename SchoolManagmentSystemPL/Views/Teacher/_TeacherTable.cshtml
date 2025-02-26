@@ -1,0 +1,61 @@
+﻿@model List<TeacherVM>
+
+@foreach (TeacherVM teacher in Model)
+{
+    <tr>
+       
+        <td>@teacher.TeacherName </td>
+        <td>@teacher.TeacherEmail</td>
+        <td>@teacher.PhoneNumber</td>
+        <td>@teacher.Address</td>
+        <td>@teacher.DateOfBirth.ToString("yyyy-MM-dd")</td> 
+         <td>@teacher.Age</td> 
+        <td>@teacher.gender</td>
+        <td>@teacher.HireDate.ToString("yyyy-MM-dd")</td> 
+        <td>@teacher.SubjectName</td>
+       
+        <td class="text-center">
+            <a asp-controller="Teacher" asp-action="Edit" asp-route-UserId="@teacher.UserId" class="text-info">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </a>
+        </td>
+        <td class="text-center">
+            <a href="javascript:void(0);" class="text-danger" onclick="confirmDelete('@teacher.UserId')">
+                <i class="fa-solid fa-trash"></i>
+            </a>
+        </td>
+    </tr>
+}
+
+<script>
+    function confirmDelete(userId) {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/Teacher/Delete?UserId=' + userId,
+                    type: 'DELETE',
+                    success: function (response) {
+                        if (response.success) {
+                            Swal.fire("Deleted!", response.message, "success").then(() => {
+                                window.location.href = "/Teacher/Index";
+                            });
+                        } else {
+                            Swal.fire("Error!", response.message, "error");
+                        }
+                    },
+                    error: function () {
+                        Swal.fire("Error!", "Something went wrong.", "error");
+                    }
+                });
+            }
+        });
+    }
+</script>

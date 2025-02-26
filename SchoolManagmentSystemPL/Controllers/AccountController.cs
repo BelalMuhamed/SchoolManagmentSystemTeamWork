@@ -39,7 +39,9 @@ namespace SchoolManagmentSystemPL.Controllers
                 if (result.Succeeded)
                 {
                     await user.AddToRoleAsync(app, "Teacher");
+
                     await user.AddToRoleAsync(app, "Admin");
+
                     await sign.SignInAsync(app, false);
                     return RedirectToAction("login", "Account");
                 }
