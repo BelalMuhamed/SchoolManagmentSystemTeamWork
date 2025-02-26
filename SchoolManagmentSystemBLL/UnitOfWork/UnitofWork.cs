@@ -44,15 +44,15 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
                 return classRepo;
             }
         }
-        public AttendanceRepo TechAttendance
-        {
-            get
-            {
-                if (techattendance == null)
-                    techattendance = new AttendanceRepo(context);
-                return techattendance;
-            }
-        }
+        //public AttendanceRepo TechAttendance
+        //{
+        //    get
+        //    {
+        //        if (techattendance == null)
+        //            techattendance = new AttendanceRepo(context);
+        //        return techattendance;
+        //    }
+        //}
         public async  Task<int> save()
         {
             return  await context.SaveChangesAsync();
