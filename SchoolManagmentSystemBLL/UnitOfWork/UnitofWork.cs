@@ -4,6 +4,7 @@ using SchoolManagmentSystem.DAL.Extend;
 using SchoolManagmentSystem.DAL.Models;
 using SchoolManagmentSystem.PL.Data;
 using SchoolManagmentSystemBLL.GenericRepo;
+using SchoolManagmentSystemBLL.Repos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,9 +20,15 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
         public SignInManager<ApplicationUser> sign;
         private GenericRepo<Subject> _subjectRepo;
         StudentRepo studentRepo;
+
+        ClassRepo classRepo;
+        GenericRepo<Subject> SubRepo;
+        GenericRepo<Teacher> teacherRepo;
+
         TeacherRepo teacherRepo;
 
         GenericRepo<Class>classRepo;
+
 
         public UnitofWork(ApplicationDbContext context,UserManager<ApplicationUser> user, SignInManager<ApplicationUser> sign)
         {
@@ -38,6 +45,9 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
                 return studentRepo;
             }
         }
+
+        public ClassRepo ClassRepo
+
 
         public TeacherRepo TeacherRepo
         {
@@ -59,12 +69,31 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
         }
 
         public GenericRepo<Class> ClassRepo
+
         {
             get
             {
                 if (classRepo == null)
-                    classRepo = new GenericRepo<Class>(context);
+                    classRepo = new ClassRepo(context);
                 return classRepo;
+            }
+        }
+        public GenericRepo<Subject> subrepo
+        {
+            get
+            {
+                if (SubRepo == null)
+                    SubRepo = new GenericRepo<Subject>(context);
+                return SubRepo;
+            }
+        }
+        public GenericRepo<Teacher> TeacherRepo
+        {
+            get
+            {
+                if (teacherRepo == null)
+                    teacherRepo = new GenericRepo<Teacher>(context);
+                return teacherRepo;
             }
         }
         public async  Task<int> save()

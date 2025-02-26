@@ -1,0 +1,35 @@
+﻿@model List<ClassVM>
+
+<h1 class=" p-5 text-center box-shadow">All Students </h1>
+
+<div class="mb-3 mt-2 d-flex justify-content-lg-between ">
+   
+    <a asp-controller="ClassForAdmin" asp-action="Add" class="btn btn-dark w-25">Add New Class</a>
+
+</div>
+
+
+<table class="table table-bordered table-hover w-100 m-auto mb-5 ">
+
+    <thead>
+
+    <td>Class Name</td>
+    <td>Manager Name</td>
+    <td>Subjects</td>
+    
+    <td>Edit</td>
+    <td>Delete</td>
+    </thead>
+
+    <tbody >
+        <partial name="_ClassesTable" model="@Model"></partial>
+    </tbody>
+
+</table>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

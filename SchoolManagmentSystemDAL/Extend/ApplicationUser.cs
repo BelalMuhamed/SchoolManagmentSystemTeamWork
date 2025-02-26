@@ -10,7 +10,10 @@ namespace SchoolManagmentSystem.DAL.Extend
 {
     public class ApplicationUser : IdentityUser
     {
+
+
        
+
         public DateTime DateOfBirth { get; set; }
         public Gender Gender { get; set; }
         public string Address { get; set; }
@@ -19,6 +22,7 @@ namespace SchoolManagmentSystem.DAL.Extend
         public bool IsDeleted { get; set; } = false;
       
     }
+
     public enum Gender
     {
         Male,

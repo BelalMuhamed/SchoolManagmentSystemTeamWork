@@ -9,18 +9,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SchoolManagmentSystem.DAL.Models
 {
-
-    [Table("Attendances")]
-    public class Attendance
+    [Table("TeacherAttendances")]
+    public class TeacherAttendance
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
-        public string UserId { get; set; }
+        public string TeacherId {get; set; }
 
-        [ForeignKey("UserId")]
-        public virtual ApplicationUser User { get; set; }
+        [ForeignKey("TeacherId")] 
+        public virtual Teacher teacher { get; set; }
 
         [Required]
         public AttendanceStatus Status { get; set; }

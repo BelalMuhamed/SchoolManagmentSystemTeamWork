@@ -30,7 +30,6 @@ namespace SchoolManagmentSystemPL.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string searchitem)
         {
-
             List<Student> Students = await unit.StudentRepo.SearchByName(searchitem);
             List<StudentVM> StudentsVm = mapper.Map<List<StudentVM>>(Students);
             if (!string.IsNullOrEmpty(searchitem))
@@ -39,7 +38,6 @@ namespace SchoolManagmentSystemPL.Controllers
             }
             return View(StudentsVm);
         }
-
         public async Task<IActionResult> Add()
         {
             StudentVM student = new StudentVM();
@@ -86,7 +84,7 @@ namespace SchoolManagmentSystemPL.Controllers
             studentvm.Classes = await unit.ClassRepo.GetAll();
             return View("Add", studentvm);
         }
-       
+        [HttpGet("Student/Edit/{UserId}")]
         public async Task<IActionResult> Edit(string UserId)
         {
 
@@ -96,22 +94,24 @@ namespace SchoolManagmentSystemPL.Controllers
             {
                 
                 EditStudentVM editStudentVM = mapper.Map<EditStudentVM>(EditStudent);
+                editStudentVM.StudentId = UserId;
                 editStudentVM.Classes = await unit.ClassRepo.GetAll();
                 return View("EditStudent", editStudentVM);
             }
-            return RedirectToAction("Index", "Student");
+            return NotFound();
 
 
         }
-        [HttpPost]
+        [HttpPost("Student/Edit/{UserId}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(EditStudentVM eDitedStudent)
+        public async Task<IActionResult> Edit(EditStudentVM eDitedStudent,[FromRoute]string UserId)
         {
             if (ModelState.IsValid)
             {
-                Student EditedStudent = await unit.StudentRepo.GetByIDAsync(eDitedStudent.StudentId);
-               // ApplicationUser EditedUser = await unit.user.FindByIdAsync(eDitedStudent.StudentId);
-                if (EditedStudent != null)
+                Student EditedStudent = await unit.StudentRepo.GetByIDAsync(UserId);
+               
+               
+                if (EditedStudent != null && EditedStudent.UserId== UserId)
                 {
                     EditedStudent.User.UserName = eDitedStudent.StudentName;
                     EditedStudent.User.Email = eDitedStudent.StudentEmail;
@@ -121,11 +121,12 @@ namespace SchoolManagmentSystemPL.Controllers
                     EditedStudent.User.Gender = eDitedStudent.gender;
                     EditedStudent.User.HireDate = eDitedStudent.HireDate;
                     EditedStudent.ClassId = eDitedStudent.ClassId;
+                  //  EditedStudent = mapper.Map<Student>(eDitedStudent);
 
 
 
                 }
-                 unit.StudentRepo.Update(EditedStudent);
+                unit.StudentRepo.Update(EditedStudent);
                 int flag = await unit.save();
                 if(flag>0)
                 {
@@ -136,27 +137,7 @@ namespace SchoolManagmentSystemPL.Controllers
             return View("EditStudent", eDitedStudent);
 
         }
-        //[HttpDelete]
-        //public async Task<IActionResult> Delete(string UserId)
-        //{
-        //    Student DeletedStudent = await unit.StudentRepo.GetByIDAsync(UserId);
-        //    if (DeletedStudent == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-
-        //    DeletedStudent.User.IsDeleted = false;
-        //    unit.StudentRepo.Update(DeletedStudent);
-        //    int flag = await unit.save();
-        //    if(flag>0)
-        //    {
-        //        TempData["SuccessMessage"] = "Item deleted successfully!";
-        //        return RedirectToAction("Index");
-        //    }
-        //    TempData["ErrorMessage"] = "Error: Unable to delete the student. Please try again.";
-        //    return RedirectToAction("Index"); 
-        //}
+        
         [HttpDelete]
         public async Task<IActionResult> Delete(string UserId)
         {
