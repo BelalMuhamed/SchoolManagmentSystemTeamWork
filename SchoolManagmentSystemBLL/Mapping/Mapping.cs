@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using SchoolManagmentSystemDAL.ViewModels;
 using SchoolManagmentSystem.DAL.Extend;
 
-
 namespace SchoolManagmentSystemBLL.Mapping
 {
     public class Mapping:Profile

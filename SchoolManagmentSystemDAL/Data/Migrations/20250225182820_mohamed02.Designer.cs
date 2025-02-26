@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolManagmentSystem.PL.Data;
 
@@ -11,9 +12,11 @@ using SchoolManagmentSystem.PL.Data;
 namespace SchoolManagmentSystem.PL.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250225182820_mohamed02")]
+    partial class mohamed02
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -262,6 +265,31 @@ namespace SchoolManagmentSystem.PL.Data.Migrations
                     b.ToTable("Answers");
                 });
 
+            modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.Attendance", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Attendances");
+                });
+
             modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.Class", b =>
                 {
                     b.Property<int>("Id")
@@ -476,31 +504,6 @@ namespace SchoolManagmentSystem.PL.Data.Migrations
                     b.ToTable("Teachers");
                 });
 
-            modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.TeacherAttendance", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TeacherId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TeacherId");
-
-                    b.ToTable("TeacherAttendances");
-                });
-
             modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.UserExam", b =>
                 {
                     b.Property<string>("UserId")
@@ -543,31 +546,6 @@ namespace SchoolManagmentSystem.PL.Data.Migrations
                     b.HasIndex("SubjectId");
 
                     b.ToTable("classesAndSubjects");
-                });
-
-            modelBuilder.Entity("SchoolManagmentSystemDAL.Models.StudentAttendance", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<string>("StudentId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("StudentAttendances");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -628,6 +606,17 @@ namespace SchoolManagmentSystem.PL.Data.Migrations
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.Attendance", b =>
+                {
+                    b.HasOne("SchoolManagmentSystem.DAL.Extend.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.Class", b =>
@@ -788,17 +777,6 @@ namespace SchoolManagmentSystem.PL.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.TeacherAttendance", b =>
-                {
-                    b.HasOne("SchoolManagmentSystem.DAL.Models.Teacher", "teacher")
-                        .WithMany()
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("teacher");
-                });
-
             modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.UserExam", b =>
                 {
                     b.HasOne("SchoolManagmentSystem.DAL.Models.Class", "Class")
@@ -843,17 +821,6 @@ namespace SchoolManagmentSystem.PL.Data.Migrations
                     b.Navigation("Class");
 
                     b.Navigation("Subject");
-                });
-
-            modelBuilder.Entity("SchoolManagmentSystemDAL.Models.StudentAttendance", b =>
-                {
-                    b.HasOne("SchoolManagmentSystem.DAL.Models.Student", "student")
-                        .WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("student");
                 });
 
             modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.Class", b =>

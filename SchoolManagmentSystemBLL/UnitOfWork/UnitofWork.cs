@@ -3,6 +3,7 @@ using SchoolManagmentSystem.DAL.Extend;
 using SchoolManagmentSystem.DAL.Models;
 using SchoolManagmentSystem.PL.Data;
 using SchoolManagmentSystemBLL.GenericRepo;
+using SchoolManagmentSystemBLL.Repos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
         public SignInManager<ApplicationUser> sign;
         StudentRepo studentRepo;
          GenericRepo<Class>classRepo;
+        AttendanceRepo techattendance;
 
         public UnitofWork(ApplicationDbContext context,UserManager<ApplicationUser> user, SignInManager<ApplicationUser> sign)
         {
@@ -41,6 +43,15 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
                 if (classRepo == null)
                     classRepo = new GenericRepo<Class>(context);
                 return classRepo;
+            }
+        }
+        public AttendanceRepo TechAttendance
+        {
+            get
+            {
+                if (techattendance == null)
+                    techattendance = new AttendanceRepo(context);
+                return techattendance;
             }
         }
         public async  Task<int> save()
