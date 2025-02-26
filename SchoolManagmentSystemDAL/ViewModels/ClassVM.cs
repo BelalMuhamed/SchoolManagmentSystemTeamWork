@@ -25,7 +25,9 @@ namespace SchoolManagmentSystemDAL.ViewModels
 
 
 
-        public List<Subject> Subjects { get; set; } = new List<Subject>();
+        public  List<Subject>? Subjects { get; set; } = new List<Subject>();
+        public  List<Teacher>? Managers { get; set; } = new List<Teacher>();
+
 
 
 

@@ -21,10 +21,16 @@ namespace SchoolManagmentSystemPL.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            List<Class> Classes =await unit.ClassRepo.GetAllAsync();
+            List<Class> Classes = await unit.ClassRepo.GetAllAsync();
             List<ClassVM> ClassesVM = mapper.Map<List<ClassVM>>(Classes);
-            return View( ClassesVM);
+            return View(ClassesVM);
         }
-
+        public async Task<IActionResult> Add()
+        {
+            ClassVM Class = new ClassVM();
+            Class.Subjects = await unit.subrepo.GetAll();
+            Class.Managers = await unit.TeacherRepo.GetAll();
+            return View();
+        }
     }
 }

@@ -19,7 +19,9 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
         public SignInManager<ApplicationUser> sign;
         StudentRepo studentRepo;
         ClassRepo classRepo;
-        
+        GenericRepo<Subject> SubRepo;
+        GenericRepo<Teacher> teacherRepo;
+
         public UnitofWork(ApplicationDbContext context,UserManager<ApplicationUser> user, SignInManager<ApplicationUser> sign)
         {
             this.context = context;
@@ -42,6 +44,24 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
                 if (classRepo == null)
                     classRepo = new ClassRepo(context);
                 return classRepo;
+            }
+        }
+        public GenericRepo<Subject> subrepo
+        {
+            get
+            {
+                if (SubRepo == null)
+                    SubRepo = new GenericRepo<Subject>(context);
+                return SubRepo;
+            }
+        }
+        public GenericRepo<Teacher> TeacherRepo
+        {
+            get
+            {
+                if (teacherRepo == null)
+                    teacherRepo = new GenericRepo<Teacher>(context);
+                return teacherRepo;
             }
         }
         public async  Task<int> save()
