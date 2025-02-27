@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SchoolManagmentSystem.DAL.Extend;
 using SchoolManagmentSystem.DAL.Models;
 using SchoolManagmentSystem.PL.Data;
@@ -17,10 +18,18 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
         private readonly ApplicationDbContext context;
         public UserManager<ApplicationUser> user;
         public SignInManager<ApplicationUser> sign;
+        private GenericRepo<Subject> _subjectRepo;
         StudentRepo studentRepo;
+
         ClassRepo classRepo;
         GenericRepo<Subject> SubRepo;
-        GenericRepo<Teacher> teacherRepo;
+       
+
+        TeacherRepo teacherRepo;
+
+
+
+
 
         public UnitofWork(ApplicationDbContext context,UserManager<ApplicationUser> user, SignInManager<ApplicationUser> sign)
         {
@@ -37,7 +46,30 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
                 return studentRepo;
             }
         }
+
+
+
+        public TeacherRepo TeacherRepo
+        {
+            get
+            {
+                if (teacherRepo == null)
+                    teacherRepo = new TeacherRepo(context);
+                return teacherRepo;
+            }
+        }
+        public GenericRepo<Subject> SubjectRepo
+        {
+            get
+            {
+                if (_subjectRepo == null)
+                    _subjectRepo = new GenericRepo<Subject>(context);
+                return _subjectRepo;
+            }
+        }
+
         public ClassRepo ClassRepo
+
         {
             get
             {
@@ -55,15 +87,7 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
                 return SubRepo;
             }
         }
-        public GenericRepo<Teacher> TeacherRepo
-        {
-            get
-            {
-                if (teacherRepo == null)
-                    teacherRepo = new GenericRepo<Teacher>(context);
-                return teacherRepo;
-            }
-        }
+      
         public async  Task<int> save()
         {
             return  await context.SaveChangesAsync();

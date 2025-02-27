@@ -20,6 +20,7 @@ namespace SchoolManagmentSystem.DAL.Models
         [ForeignKey("UserId")]
         public virtual ApplicationUser? User { get; set; }
 
+
         [Required]
         public int SubjectId { get; set; }
 

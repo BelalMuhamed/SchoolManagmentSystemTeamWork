@@ -16,6 +16,7 @@ namespace SchoolManagmentSystem.DAL.Extend
         public DateTime HireDate { get; set; }
         [DefaultValue("false")]
         public bool IsDeleted { get; set; } = false;
+      
     }
 
     public enum Gender

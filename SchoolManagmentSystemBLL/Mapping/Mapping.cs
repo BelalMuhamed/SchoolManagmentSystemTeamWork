@@ -60,7 +60,44 @@ namespace SchoolManagmentSystemBLL.Mapping
                 src.ClassId = src.ClassId;
                 desc.ClassName = src.Class.Name;
                
-            });
+            }).ReverseMap();
+           
+            CreateMap<Teacher, TeacherVM>().AfterMap((src, desc) => {
+                desc.UserId = src.UserId;
+                desc.TeacherName = src.User.UserName;
+                desc.TeacherEmail = src.User.Email;
+                desc.PhoneNumber = src.User.PhoneNumber;
+                desc.Address = src.User.Address;
+                desc.DateOfBirth = src.User.DateOfBirth;
+                desc.gender = src.User.Gender;
+                desc.HireDate = src.User.HireDate;
+                desc.Password = src.User.PasswordHash;
+            }).ReverseMap();
+
+            CreateMap<ApplicationUser, TeacherVM>().AfterMap((src, desc) => {
+                desc.UserId = src.Id;
+                desc.TeacherName = src.UserName;
+                desc.TeacherEmail = src.Email;
+                desc.PhoneNumber = src.PhoneNumber;
+                desc.Address = src.Address;
+             desc.DateOfBirth = src.DateOfBirth;
+                desc.gender = src.Gender;
+                desc.HireDate = src.HireDate;
+                desc.Password = src.PasswordHash;
+            }).ReverseMap().ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.TeacherName))
+              .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.TeacherEmail))
+              .ForMember(dest => dest.PasswordHash, opt => opt.Ignore());
+
+            CreateMap<Teacher, EditTeacherVM>().AfterMap((src, desc) => {
+                desc.TeacherId = src.UserId;
+                desc.TeacherName = src.User.UserName;
+                desc.TeacherEmail = src.User.Email;
+                desc.PhoneNumber = src.User.PhoneNumber;
+                desc.Address = src.User.Address;
+                desc.DateOfBirth = src.User.DateOfBirth;
+                desc.gender = src.User.Gender;
+                desc.HireDate = src.User.HireDate;
+            }).ReverseMap();
             CreateMap<EditStudentVM, Student>().AfterMap((src, desc) => {
 
                 desc.User.UserName = src.StudentName;
@@ -79,10 +116,12 @@ namespace SchoolManagmentSystemBLL.Mapping
                 desc.ClassName = src.Name;
                 desc.ManagerId = src.ManagerId;
                 desc.ManagerName = src.User.UserName;
-                desc.Subjects = src.classsubjesct.Where(c=>c.classId==desc.ClassId).Select(s=>s.Subject).ToList();
+                desc.Subjects = src.classsubjesct.Where(c => c.classId == desc.ClassId).Select(s => s.Subject).ToList();
 
             });
-       
+
+        }
+
+
     }
     }
-}
