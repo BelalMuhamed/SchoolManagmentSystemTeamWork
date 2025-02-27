@@ -48,7 +48,6 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
             }
         }
 
-        public ClassRepo ClassRepo;
 
 
 
