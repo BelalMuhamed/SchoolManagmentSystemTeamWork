@@ -23,6 +23,7 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
 
         ClassRepo classRepo;
         GenericRepo<Subject> SubRepo;
+
        
 
         TeacherRepo teacherRepo;
@@ -46,6 +47,9 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
                 return studentRepo;
             }
         }
+
+        public ClassRepo ClassRepo;
+
 
 
 
