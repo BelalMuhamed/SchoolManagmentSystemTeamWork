@@ -20,12 +20,8 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
         public SignInManager<ApplicationUser> sign;
         private GenericRepo<Subject> _subjectRepo;
         StudentRepo studentRepo;
-
         ClassRepo classRepo;
         GenericRepo<Subject> SubRepo;
-
-       
-
         TeacherRepo teacherRepo;
 
 
