@@ -24,7 +24,7 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
         GenericRepo<Subject> SubRepo;
         TeacherRepo teacherRepo;
 
-
+        ManageTeacherAttendanceRepo manageTeacherAttendanceRepo;
 
 
 
@@ -86,7 +86,15 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
                 return SubRepo;
             }
         }
-      
+        public ManageTeacherAttendanceRepo manageteacherAttendanceRepo
+        {
+            get
+            {
+                if (manageTeacherAttendanceRepo == null)
+                    manageTeacherAttendanceRepo = new ManageTeacherAttendanceRepo(context);
+                return manageTeacherAttendanceRepo;
+            }
+        }
         public async  Task<int> save()
         {
             return  await context.SaveChangesAsync();

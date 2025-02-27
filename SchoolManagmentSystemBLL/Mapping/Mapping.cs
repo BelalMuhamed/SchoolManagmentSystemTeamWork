@@ -116,7 +116,12 @@ namespace SchoolManagmentSystemBLL.Mapping
                 desc.gender = src.User.Gender;
                 desc.HireDate = src.User.HireDate;
             }).ReverseMap();
-
+            CreateMap<TeacherAttendance, TeacherAttendanceVM>().AfterMap((src, desc) => {
+                desc.TeacherId = src.TeacherId;
+                desc.TeacherName = src.teacher.User.UserName;
+                desc.Date = src.Date;
+                desc.Status = src.Status;
+            }).ReverseMap();
         }
 
 
