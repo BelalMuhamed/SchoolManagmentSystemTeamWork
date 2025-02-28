@@ -38,3 +38,4 @@ namespace SchoolManagmentSystemBLL.GenericRepo
         }
     }
 }
+
