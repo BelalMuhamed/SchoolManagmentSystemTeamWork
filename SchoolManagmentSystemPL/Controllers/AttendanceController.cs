@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SchoolManagmentSystem.DAL;
 using SchoolManagmentSystem.DAL.Models;
 using SchoolManagmentSystem.PL.Data;
+using SchoolManagementSystemDAL.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace SchoolManagmentSystem.Controllers
         }       
         public async Task<IActionResult> Index()
         {
-            var attendances = await _context.Attendances.Include(a => a.User).ToListAsync();
+            var attendances = await _context.StudentAttendances.Include(a => a.StudentId).ToListAsync();
             return View(attendances);
         }        
         public IActionResult Create()
@@ -30,7 +31,7 @@ namespace SchoolManagmentSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Attendance attendance)
+        public async Task<IActionResult> Create(StudentAttendance attendance)
         {
             if (ModelState.IsValid)
             {

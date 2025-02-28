@@ -1,0 +1,17 @@
+﻿@model List<TeacherAttendanceVM>
+@if(Model != null)
+{
+    @foreach (TeacherAttendanceVM teacherrecord in Model)
+    {
+
+        <tr>
+            <td>@teacherrecord.Date </td>
+            <td>@teacherrecord.TeacherName</td>
+            <td>@teacherrecord.Status</td>
+        </tr>
+    }
+}
+else
+{
+    <tr class="colspan='3'">There isn't teacher attendance in this day </tr>
+}

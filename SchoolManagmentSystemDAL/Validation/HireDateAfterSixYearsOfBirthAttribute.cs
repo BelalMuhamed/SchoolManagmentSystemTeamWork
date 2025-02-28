@@ -1,4 +1,4 @@
-﻿using SchoolManagmentSystemDAL.ViewModels;
+﻿using SchoolManagementSystemDAL.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,15 +12,28 @@ namespace SchoolManagmentSystemBLL.Validation
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var model = (StudentVM)validationContext.ObjectInstance; 
+            DateTime dateOfBirth;
 
-            if (model.DateOfBirth == null || value == null)
+            if (validationContext.ObjectInstance is StudentVM studentModel)
             {
-                return ValidationResult.Success; 
+                dateOfBirth = studentModel.DateOfBirth;
+            }
+            else if (validationContext.ObjectInstance is TeacherVM teacherModel)
+            {
+                dateOfBirth = teacherModel.DateOfBirth;
+            }
+            else
+            {
+                return ValidationResult.Success;
+            }
+
+            if (dateOfBirth == null || value == null)
+            {
+                return ValidationResult.Success;
             }
 
             DateTime hireDate = (DateTime)value;
-            DateTime minimumHireDate = model.DateOfBirth.AddYears(6);
+            DateTime minimumHireDate = dateOfBirth.AddYears(6);
 
             if (hireDate < minimumHireDate)
             {

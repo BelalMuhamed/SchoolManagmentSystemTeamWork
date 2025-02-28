@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagmentSystem.DAL.Extend;
 using SchoolManagmentSystem.DAL.Models;
-using SchoolManagmentSystemDAL.ViewModels;
-
+using SchoolManagementSystemDAL.ViewModels;
 
 namespace SchoolManagmentSystemPL.Controllers
 {
+
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> user;
@@ -22,6 +22,7 @@ namespace SchoolManagmentSystemPL.Controllers
         {
             return View("register");
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> register(RegisterViewModel model)
@@ -37,7 +38,10 @@ namespace SchoolManagmentSystemPL.Controllers
                 IdentityResult result = await user.CreateAsync(app, model.Password);
                 if (result.Succeeded)
                 {
-                    await user.AddToRoleAsync(app, "Student");
+                    
+
+                    await user.AddToRoleAsync(app, "Admin");
+
                     await sign.SignInAsync(app, false);
                     return RedirectToAction("login", "Account");
                 }
@@ -78,7 +82,7 @@ namespace SchoolManagmentSystemPL.Controllers
                         }
                         else if (User.IsInRole("Teacher"))
                         {
-
+                            return RedirectToAction("register", "Account");
                         }
                     }
                 }

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagmentSystemDAL.Models
+namespace SchoolManagementSystemDAL.Models
 {
     [PrimaryKey(nameof(classId), nameof(SubjectId))]
     public class ClassAndSubjects
@@ -17,7 +17,9 @@ namespace SchoolManagmentSystemDAL.Models
         [ForeignKey("classId")]
         public virtual Class Class { get; set; }
         [ForeignKey("SubjectId")]
-
         public virtual Subject Subject { get; set; }
+
+       
+
     }
 }

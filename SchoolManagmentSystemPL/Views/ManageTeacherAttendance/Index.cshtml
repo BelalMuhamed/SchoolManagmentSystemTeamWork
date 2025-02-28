@@ -1,0 +1,54 @@
+﻿@model List<TeacherAttendanceVM>
+<h1 class=" p-5 text-center box-shadow">Teacher Attendance  </h1>
+
+
+
+<div class="mb-3 mt-2 d-flex justify-content-lg-between ">
+    <input type="date" class="form-control w-25" id="dateinput"value="@null" placeholder="search by Date " />
+    <a asp-controller="ManageTeacherAttendance" asp-action="SubmitAttendance" class="btn btn-dark w-25">Take Attendance For Today </a>
+
+</div>
+
+
+<table class="table table-bordered table-hover w-100 m-auto mb-5 ">
+
+    <thead>
+
+    <td> Date</td>
+    <td>Teacher Name</td>
+    <td>State</td>
+   
+    </thead>
+
+    <tbody id="attendancetable">
+        <partial name="_TeacherAttendanceTable" model="@Model"></partial>
+    </tbody>
+
+</table>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#dateinput").change(function () { 
+                var searchValue = $(this).val();
+
+                if (searchValue) {
+                    $.ajax({
+                        url: "/ManageTeacherAttendance/Index",
+                        type: "GET",
+                        data: { daydate: searchValue },
+                        success: function (data) {
+                            $("#attendancetable").html(data);
+                        },
+                        error: function () {
+                            $("#attendancetable").html("<tr><td colspan='3' class='text-danger text-center'>You haven't taken attendance for this date.</td></tr>");
+                        }
+                    });
+                } else {
+                    location.reload();
+                }
+            });
+        });
+    </script>
+}

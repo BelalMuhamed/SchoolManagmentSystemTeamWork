@@ -3,24 +3,24 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolManagmentSystem.PL.Data;
 
 #nullable disable
 
-namespace SchoolManagmentSystem.PL.Data.Migrations
+namespace SchoolManagementSystemDAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250219004410_V3")]
-    partial class V3
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "9.0.2")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -190,15 +190,14 @@ namespace SchoolManagmentSystem.PL.Data.Migrations
                     b.Property<DateTime>("HireDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -263,31 +262,6 @@ namespace SchoolManagmentSystem.PL.Data.Migrations
                     b.ToTable("Answers");
                 });
 
-            modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.Attendance", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Attendances");
-                });
-
             modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.Class", b =>
                 {
                     b.Property<int>("Id")
@@ -297,7 +271,6 @@ namespace SchoolManagmentSystem.PL.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ManagerId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
@@ -426,11 +399,6 @@ namespace SchoolManagmentSystem.PL.Data.Migrations
                     b.Property<int>("ClassId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ParentName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
                     b.HasKey("UserId");
 
                     b.HasIndex("ClassId");
@@ -467,20 +435,6 @@ namespace SchoolManagmentSystem.PL.Data.Migrations
                     b.HasIndex("TeacherId");
 
                     b.ToTable("StudentDegrees");
-                });
-
-            modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.StudentPhone", b =>
-                {
-                    b.Property<string>("StudentId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Phones")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.HasKey("StudentId", "Phones");
-
-                    b.ToTable("StudentPhones");
                 });
 
             modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.Subject", b =>
@@ -522,6 +476,22 @@ namespace SchoolManagmentSystem.PL.Data.Migrations
                     b.ToTable("Teachers");
                 });
 
+            modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.TeacherAttendance", b =>
+                {
+                    b.Property<string>("TeacherId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("TeacherId", "Date");
+
+                    b.ToTable("TeacherAttendances");
+                });
+
             modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.UserExam", b =>
                 {
                     b.Property<string>("UserId")
@@ -549,6 +519,46 @@ namespace SchoolManagmentSystem.PL.Data.Migrations
                     b.HasIndex("ExamId");
 
                     b.ToTable("UserExams");
+                });
+
+            modelBuilder.Entity("SchoolManagmentSystemDAL.Models.ClassAndSubjects", b =>
+                {
+                    b.Property<int>("classId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubjectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("classId", "SubjectId");
+
+                    b.HasIndex("SubjectId");
+
+                    b.ToTable("classesAndSubjects");
+                });
+
+            modelBuilder.Entity("SchoolManagmentSystemDAL.Models.StudentAttendance", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StudentId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("StudentAttendances");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -611,24 +621,11 @@ namespace SchoolManagmentSystem.PL.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.Attendance", b =>
-                {
-                    b.HasOne("SchoolManagmentSystem.DAL.Extend.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.Class", b =>
                 {
                     b.HasOne("SchoolManagmentSystem.DAL.Extend.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("ManagerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ManagerId");
 
                     b.Navigation("User");
                 });
@@ -763,17 +760,6 @@ namespace SchoolManagmentSystem.PL.Data.Migrations
                     b.Navigation("Teacher");
                 });
 
-            modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.StudentPhone", b =>
-                {
-                    b.HasOne("SchoolManagmentSystem.DAL.Models.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Student");
-                });
-
             modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.Teacher", b =>
                 {
                     b.HasOne("SchoolManagmentSystem.DAL.Models.Subject", "Subject")
@@ -791,6 +777,17 @@ namespace SchoolManagmentSystem.PL.Data.Migrations
                     b.Navigation("Subject");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.TeacherAttendance", b =>
+                {
+                    b.HasOne("SchoolManagmentSystem.DAL.Models.Teacher", "teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("teacher");
                 });
 
             modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.UserExam", b =>
@@ -820,6 +817,41 @@ namespace SchoolManagmentSystem.PL.Data.Migrations
                     b.Navigation("Exam");
                 });
 
+            modelBuilder.Entity("SchoolManagmentSystemDAL.Models.ClassAndSubjects", b =>
+                {
+                    b.HasOne("SchoolManagmentSystem.DAL.Models.Subject", "Subject")
+                        .WithMany("classsubjesct")
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SchoolManagmentSystem.DAL.Models.Class", "Class")
+                        .WithMany("classsubjesct")
+                        .HasForeignKey("classId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Class");
+
+                    b.Navigation("Subject");
+                });
+
+            modelBuilder.Entity("SchoolManagmentSystemDAL.Models.StudentAttendance", b =>
+                {
+                    b.HasOne("SchoolManagmentSystem.DAL.Models.Student", "student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("student");
+                });
+
+            modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.Class", b =>
+                {
+                    b.Navigation("classsubjesct");
+                });
+
             modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.Exam", b =>
                 {
                     b.Navigation("Questions");
@@ -833,6 +865,8 @@ namespace SchoolManagmentSystem.PL.Data.Migrations
             modelBuilder.Entity("SchoolManagmentSystem.DAL.Models.Subject", b =>
                 {
                     b.Navigation("Teachers");
+
+                    b.Navigation("classsubjesct");
                 });
 #pragma warning restore 612, 618
         }

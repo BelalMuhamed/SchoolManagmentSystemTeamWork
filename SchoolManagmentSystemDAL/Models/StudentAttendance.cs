@@ -1,26 +1,25 @@
-﻿using SchoolManagmentSystem.DAL.Extend;
+﻿using SchoolManagmentSystem.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 
-namespace SchoolManagmentSystem.DAL.Models
+namespace SchoolManagementSystemDAL.Models
 {
-
-    [Table("Attendances")]
-    public class Attendance
+    [Table("StudentAttendances")]
+    public class StudentAttendance
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
-        public string UserId { get; set; }
+        public string StudentId { get; set; }
 
-        [ForeignKey("UserId")]
-        public virtual ApplicationUser User { get; set; }
+        [ForeignKey("StudentId")]
+        public virtual Student student { get; set; }
 
         [Required]
         public AttendanceStatus Status { get; set; }
@@ -37,3 +36,4 @@ namespace SchoolManagmentSystem.DAL.Models
 
 
 }
+

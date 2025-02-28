@@ -1,0 +1,35 @@
+﻿@model List<TeacherAttendanceVM>
+
+<form asp-action="SubmitAttendance" asp-controller="ManageTeacherAttendance" method="post">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                
+                <th>Teacher Name</th>
+                <th>State</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+
+                    <input type="hidden" asp-for="@Model[i].TeacherId" />
+                        <input type="hidden" asp-for="@Model[i].Date" class="form-control" />
+                    
+                    <td>
+                        <input readonly type="text" asp-for="@Model[i].TeacherName" class="form-control" />
+                    </td>
+                    <td>
+                        <select asp-for="@Model[i].Status" class="form-control">
+                            <option value="Present">Present</option>
+                            <option value="Absent">Absent</option>
+                        </select>
+                        <span asp-validation-for="@Model[i].Status" style="color:red"></span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Submit Attendance</button>
+</form>
