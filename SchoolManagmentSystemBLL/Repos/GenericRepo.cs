@@ -45,5 +45,10 @@ namespace SchoolManagmentSystemBLL.GenericRepo
              context.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
 
         }
+
+        public async Task AddRange(IEnumerable<T> items)
+        {
+            await context.Set<T>().AddRangeAsync(items);
+        }
     }
 }

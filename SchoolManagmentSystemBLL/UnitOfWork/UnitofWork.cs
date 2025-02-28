@@ -23,13 +23,19 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
         public SignInManager<ApplicationUser> sign;
         public IgenericRepo<Subject> subrepo;
         StudentRepo studentRepo;
-        SubjectRepo subjectRepo;
-        
-         GenericRepo<Class>classRepo;   
-     TeacherRepo teacherRepo;
-        
-       
+        ClassRepo classRepo;
+        GenericRepo<Subject> SubRepo;
+        TeacherRepo teacherRepo;
+        private GenericRepo<Exam> examRepo;
+        private GenericRepo<UserExam> userExamRepo;
+        private GenericRepo<StudentDegree> studentDegreeRepo;
+        private ClassExamRepo classExam;
+        private QuestionRepo questionRepo;
+        private AnswerRepo answerRepo;
         ManageTeacherAttendanceRepo manageTeacherAttendanceRepo;
+
+
+
         public UnitofWork(ApplicationDbContext context,UserManager<ApplicationUser> user, SignInManager<ApplicationUser> sign)
         {
             this.context = context;
@@ -90,7 +96,49 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
             }
         }
 
-       
+        public GenericRepo<Exam> ExamRepo
+        {
+            get
+            {
+                if (examRepo == null)
+                    examRepo = new GenericRepo<Exam>(context);
+                return examRepo;
+            }
+        }
+        public GenericRepo<StudentDegree> StudentDegree
+        {
+            get
+            {
+                if (studentDegreeRepo == null)
+                    studentDegreeRepo = new GenericRepo<StudentDegree>(context);
+                return studentDegreeRepo;
+            }
+        }
+
+        public GenericRepo<UserExam> UserExam
+        {
+            get
+            {
+                if (userExamRepo == null)
+                    userExamRepo = new GenericRepo<UserExam>(context);
+                return userExamRepo;
+            }
+        }
+
+        public ClassExamRepo ClassExamRepo
+        {
+            get
+            {
+                if (classExam == null)
+                    classExam = new ClassExamRepo(context);
+                return classExam;
+            }
+        }
+
+
+        public QuestionRepo QuestionRepo => questionRepo ??= new QuestionRepo(context);
+        public AnswerRepo AnswerRepo => answerRepo ??= new AnswerRepo(context);
+
         public async  Task<int> save()
         {
             return  await context.SaveChangesAsync();

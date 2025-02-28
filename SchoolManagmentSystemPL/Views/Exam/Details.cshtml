@@ -1,0 +1,137 @@
+﻿@model ExamDetails
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+
+@{
+    int i = 0;
+    ViewBag.Title = "Exam Details";
+}
+<div class="exam-container">
+    <table class="exam-header-table">
+        <tr>
+            <th>Teacher</th>
+            <td class="text-center">@Model?.TeacherName</td>
+        </tr>
+
+        <tr>
+            <th>Subject</th>
+            <td class="text-center">@Model?.SubjectName</td>
+        </tr>
+        <tr>
+            <th>Time Allowed</th>
+            <td class="text-center">
+                @{
+                    var hours = Model?.Time / 60;
+                    var minutes = Model?.Time % 60;
+                    var timeFormatted =
+                    (hours > 0 ? $"{hours} hours " : "") +
+                    (minutes > 0 ? $"{minutes} minutes" : "");
+                }
+                @timeFormatted
+            </td>
+
+        </tr>
+        <tr>
+            <th>Total Degree</th>
+            <td class="text-center">@Model?.TotalDegree</td>
+        </tr>
+        <tr>
+            <th>Minimum Degree</th>
+            <td class="text-center">@Model?.MinDegree</td>
+        </tr>
+    </table>
+    <div id="timer" class="timer-box"></div>
+
+    <form id="examForm" method="post" asp-action="SubmitExam">
+        <input type="hidden" name="ExamId" value="@Model?.ExamId" />
+        <input type="hidden" name="StudentId" value="@Model?.StudentId" />
+        <input type="hidden" name="SubjectId" value="@Model?.SubjectId" />
+        <input type="hidden" name="ClassId" value="@Model?.ClassId" />
+        <input type="hidden" name="TeacherId" value="@Model?.TeacherId" />
+        <input type="hidden" id="degreeInput" name="Degree" />
+        <input type="hidden" name="TotalDegree" value="@Model.TotalDegree" />
+        @foreach (var question in Model?.Questions)
+        {
+            i++;
+            <p class="question-degree">[Score: @(Model?.TotalDegree/Model?.Questions.Count)]</p>
+            <div class="question-box">
+                <p class="question-text">Q@(i): @question.Body</p>
+
+                <div class="answers-grid">
+                    @foreach (var answer in question.Answers)
+                    {
+                        <div class="answer-option" onclick="selectAnswer(@question.Id, @answer.Id, @question.CorrectAnswerId)">
+                            <input type="radio" name="q_@question.Id" value="@answer.Id" id="q_@(question.Id)_@answer.Id">
+                            <label for="q_@(question.Id)_@answer.Id">@answer.Text</label>
+                        </div>
+                    }
+                </div>
+
+                <p id="feedback_@question.Id" class="feedback"></p>
+            </div>
+        }
+
+        <button type="submit" onclick="degree()" class="submit-btn">Submit Exam</button>
+    </form>
+</div>
+
+<script>
+    let totalScore = 0;
+    function selectAnswer(questionId, selectedAnswerId, correctAnswerId) {
+        let feedback = document.getElementById("feedback_" + questionId);
+        let options = document.querySelectorAll(`input[name="q_${questionId}"]`);
+        let selectedDiv = document.querySelector(`#q_${questionId}_${selectedAnswerId}`).closest(".answer-option");
+        let correctDiv = document.querySelector(`#q_${questionId}_${correctAnswerId}`).closest(".answer-option");
+        let scorePerQuestion = @Model?.TotalDegree / @Model?.Questions.Count;
+
+        if (options[0].disabled) return;
+        correctDiv.classList.add("selected-correct");
+        options.forEach(opt => opt.disabled = true);
+        if (selectedAnswerId == correctAnswerId) {
+            selectedDiv.classList.add("selected-correct");
+            feedback.innerHTML = "✅ Correct!";
+            feedback.classList.add("correct");
+            totalScore += scorePerQuestion;
+        } else {
+            let correctText = document.querySelector(`label[for="q_${questionId}_${correctAnswerId}"]`).textContent;
+            feedback.innerHTML = `❌ Wrong! The correct answer is: <strong>${correctText}</strong>`;
+            feedback.classList.add("wrong");
+            selectedDiv.classList.add("selected-wrong");
+            correctLabel.style.backgroundColor = "#c8e6c9";
+        }
+    }
+
+      let timeRemaining = @Model?.Time * 60; 
+
+    function startTimer() {
+        let timerDisplay = document.getElementById("timer");
+        let examForm = document.getElementById("examForm");
+
+        function updateTimer() {
+            let hours = Math.floor(timeRemaining / 3600);
+            let minutes = Math.floor((timeRemaining % 3600) / 60);
+            let seconds = timeRemaining % 60;
+
+            let timeFormatted =
+                (hours > 0 ? hours + ":" : "") +
+                minutes.toString().padStart(2, '0') + ":" +
+                seconds.toString().padStart(2, '0');
+
+            timerDisplay.textContent = timeFormatted;
+
+            if (timeRemaining <= 0) {
+                clearInterval(timerInterval);
+                examForm.submit(); 
+            } else {
+                timeRemaining--;
+            }
+        }
+
+        updateTimer();
+        let timerInterval = setInterval(updateTimer, 1000);
+    }
+    function degree(){
+        document.getElementById("degreeInput").value = totalScore;
+        examForm.submit();
+    }
+    window.onload = startTimer;
+</script>

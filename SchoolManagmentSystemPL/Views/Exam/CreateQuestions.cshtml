@@ -1,0 +1,112 @@
+﻿@model List<QuestionVM>
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+
+@{
+    ViewData["Title"] = "Add New Questions";
+    var questions = new List<QuestionVM>();
+}
+
+<h2 class="mb-4 text-center">@ViewData["Title"]</h2>
+
+<div id="questionsContainer">
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <div class="card mb-4 shadow-lg rounded p-4 question-card" data-index="@i">
+            <h4 class="mb-3">Question @(i + 1)</h4>
+
+            <div class="form-group">
+                <label class="fw-bold">Question:</label>
+                <textarea class="form-control question-body" rows="2" placeholder="Enter your question here...">@Model[i]?.Body</textarea>
+            </div>
+
+            <div class="form-group mt-3">
+                <label class="fw-bold">Answers:</label>
+                <div class="row">
+                    @for (int j = 0; j < Model[i].Answers.Count; j++)
+                    {
+                        <div class="col-md-6 mb-2">
+                            <div class="input-group">
+                                <span class="input-group-text">@(j + 1)</span>
+                                <input type="text" class="form-control answer-text" placeholder="Enter answer @(j + 1)" value="@Model[i].Answers[j].Text">
+                                <div class="input-group-text">
+                                    <input type="radio" class="correct-answer" name="question-@i-correct" value="@j" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <small class="text-muted">Select the correct answer using the radio button.</small>
+            </div>
+
+            <input type="hidden" class="exam-id" value="@Model[i].ExamId" />
+            @* <input type="hidden" id="RequestVerificationToken" name="__RequestVerificationToken" value="@Html.AntiForgeryToken()" /> *@
+            @* <input name="__RequestVerificationToken" type="hidden" value="TOKEN_VALUE_HERE" /> *@
+            <input type="hidden" name="__RequestVerificationToken" value="@Antiforgery.GetAndStoreTokens(Context).RequestToken" />
+
+        </div>
+    }
+</div>
+
+<!-- Buttons -->
+<div class="text-center mt-4">
+    <button type="button" class="btn btn-success px-4" id="saveQuestionsBtn" onclick="submitQuestions()">Save Questions</button>
+    <a asp-action="Index" asp-controller="Exams" asp-route-examId="@ViewBag.ExamId" class="btn btn-outline-secondary px-4">Cancel</a>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function submitQuestions() {
+            let questions = [];
+            let hasEmptyFields = false;
+            $(".question-card").each(function () {
+                let questionBody = $(this).find(".question-body").val().trim();
+                let examId = $(this).find(".exam-id").val();
+                let correctAnswerId = $(this).find(".correct-answer:checked").val();
+                let answers = [];
+                $(this).find(".answer-text").each(function () {
+                    let answerText = $(this).val().trim();
+                    if (!answerText) {
+                        hasEmptyFields = true;
+                    }
+                    answers.push({ Text: answerText });
+                });
+                
+
+                if (!questionBody) {
+                    hasEmptyFields = true;
+                }
+
+                questions.push({
+                    Body: questionBody,
+                    ExamId: examId,
+                    CorrectAnswerId: correctAnswerId,
+                    Answers: answers
+                });
+            });
+
+            if (hasEmptyFields) {
+                alert("Please fill in all questions and answers before submitting.");
+                return;
+            }
+
+           //$("#saveQuestionsBtn").prop("disabled", true).text("Saving...");
+            var token = document.querySelector("input[name='__RequestVerificationToken']").value;
+            console.log(token);
+            $.ajax({
+            url: "/Exam/CreateQuestions",
+            type: "POST",
+            contentType: "application/json",
+            headers: { "RequestVerificationToken": token },
+            data: JSON.stringify(questions),
+            success: function (response) {
+                alert("Questions saved successfully!");
+            },
+            error: function (xhr) {
+                alert("Error saving questions: " + xhr.responseText);
+            }
+            });
+
+        }
+    </script>
+}
