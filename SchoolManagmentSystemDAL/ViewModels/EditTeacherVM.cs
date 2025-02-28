@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace SchoolManagmentSystemDAL.ViewModels
+namespace SchoolManagementSystemDAL.ViewModels
 {
     public class EditTeacherVM
     {

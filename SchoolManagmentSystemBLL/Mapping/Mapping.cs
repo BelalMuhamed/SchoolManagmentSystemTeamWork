@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SchoolManagmentSystemDAL.ViewModels;
+using SchoolManagementSystemDAL.ViewModels;
 using SchoolManagmentSystem.DAL.Extend;
 using Microsoft.AspNetCore.Routing.Constraints;
 

@@ -9,7 +9,7 @@ using SchoolManagmentSystem.PL.Data;
 
 #nullable disable
 
-namespace SchoolManagmentSystemDAL.Migrations
+namespace SchoolManagementSystemDAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20250226120915_init")]

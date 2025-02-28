@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace SchoolManagmentSystemDAL.Migrations
+namespace SchoolManagementSystemDAL.Migrations
 {
     /// <inheritdoc />
     public partial class v04 : Migration

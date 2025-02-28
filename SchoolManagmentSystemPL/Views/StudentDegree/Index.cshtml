@@ -1,0 +1,41 @@
+﻿@model IEnumerable<SchoolManagmentSystem.DAL.Models.StudentDegree>
+
+@{
+    ViewData["Title"] = "Student Degrees";
+}
+
+<h2>Student Degrees</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Student</th>
+            <th>Subject</th>
+            <th>Class</th>
+            <th>Teacher</th>
+            <th>Degree</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var degree in Model)
+        {
+            <tr>
+                <td>@degree.Student?.UserId</td>
+                <td>@degree.Subject?.Name</td>
+                <td>@degree.Class?.Name</td>
+                <td>@degree.Teacher?.UserId</td>
+                <td>@degree.Degree</td>
+                <td>@degree.Status</td>
+                <td>
+                    <a asp-action="Edit" asp-route-studentId="@degree.StudentId" asp-route-subjectId="@degree.SubjectId" asp-route-classId="@degree.ClassId" asp-route-teacherId="@degree.TeacherId" class="btn btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-studentId="@degree.StudentId" asp-route-subjectId="@degree.SubjectId" asp-route-classId="@degree.ClassId" asp-route-teacherId="@degree.TeacherId" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-primary">Add New Degree</a>
+

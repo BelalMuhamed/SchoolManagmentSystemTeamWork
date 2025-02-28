@@ -10,7 +10,7 @@ using SchoolManagmentSystem.DAL.Models;
 using SchoolManagmentSystemBLL.GenericRepo;
 using SchoolManagmentSystemBLL.Mapping;
 using SchoolManagmentSystemBLL.UnitOfWork;
-using SchoolManagmentSystemDAL.ViewModels;
+using SchoolManagementSystemDAL.ViewModels;
 using System.Threading.Tasks;
 
 namespace SchoolManagmentSystemPL.Controllers

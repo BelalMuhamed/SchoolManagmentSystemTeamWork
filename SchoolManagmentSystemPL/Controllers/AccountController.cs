@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagmentSystem.DAL.Extend;
 using SchoolManagmentSystem.DAL.Models;
-using SchoolManagmentSystemDAL.ViewModels;
+using SchoolManagementSystemDAL.ViewModels;
 
 namespace SchoolManagmentSystemPL.Controllers
 {

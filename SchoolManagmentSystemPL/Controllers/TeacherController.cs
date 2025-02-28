@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using SchoolManagmentSystem.DAL.Extend;
 using SchoolManagmentSystem.DAL.Models;
 using SchoolManagmentSystemBLL.UnitOfWork;
-using SchoolManagmentSystemDAL.ViewModels;
+using SchoolManagementSystemDAL.ViewModels;
 
 namespace SchoolManagmentSystemPL.Controllers
 {

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagmentSystemDAL.ViewModels
+namespace SchoolManagementSystemDAL.ViewModels
 {
    public  class TeacherAttendanceVM
     {

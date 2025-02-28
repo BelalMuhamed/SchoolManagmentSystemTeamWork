@@ -4,7 +4,9 @@ using SchoolManagmentSystem.DAL.Extend;
 using SchoolManagmentSystem.DAL.Models;
 using SchoolManagmentSystem.PL.Data;
 using SchoolManagmentSystemBLL.GenericRepo;
+using SchoolManagmentSystemBLL.IGenericRepos;
 using SchoolManagmentSystemBLL.Repos;
+using SchoolManagmentSystemBLL.IGenericRepos;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -19,16 +21,15 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
         private readonly ApplicationDbContext context;
         public UserManager<ApplicationUser> user;
         public SignInManager<ApplicationUser> sign;
-        private GenericRepo<Subject> _subjectRepo;
+        public IgenericRepo<Subject> subrepo;
         StudentRepo studentRepo;
-        ClassRepo classRepo;
-        GenericRepo<Subject> SubRepo;
-        TeacherRepo teacherRepo;
+        SubjectRepo subjectRepo;
         
+         GenericRepo<Class>classRepo;   
+     TeacherRepo teacherRepo;
+        
+       
         ManageTeacherAttendanceRepo manageTeacherAttendanceRepo;
-
-
-
         public UnitofWork(ApplicationDbContext context,UserManager<ApplicationUser> user, SignInManager<ApplicationUser> sign)
         {
             this.context = context;
@@ -46,9 +47,20 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
         }
 
 
-
-
-
+        public SubjectRepo SubjectRepo
+        {
+            get
+            {
+                if (subjectRepo == null)
+                    subjectRepo = new SubjectRepo(context);
+                return subjectRepo;
+            }
+        }
+        
+        
+        
+        
+        
         public TeacherRepo TeacherRepo
         {
             get
@@ -58,35 +70,16 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
                 return teacherRepo;
             }
         }
-        public GenericRepo<Subject> SubjectRepo
-        {
-            get
-            {
-                if (_subjectRepo == null)
-                    _subjectRepo = new GenericRepo<Subject>(context);
-                return _subjectRepo;
-            }
-        }
 
-        public ClassRepo ClassRepo
-
-        {
+        public ClassRepo ClassRepo {
             get
             {
                 if (classRepo == null)
                     classRepo = new ClassRepo(context);
-                return classRepo;
+                return (ClassRepo)classRepo;
             }
         }
-        public GenericRepo<Subject> subrepo
-        {
-            get
-            {
-                if (SubRepo == null)
-                    SubRepo = new GenericRepo<Subject>(context);
-                return SubRepo;
-            }
-        }
+  
         public ManageTeacherAttendanceRepo manageteacherAttendanceRepo
         {
             get

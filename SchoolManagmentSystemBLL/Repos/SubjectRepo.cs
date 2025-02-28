@@ -1,4 +1,9 @@
+ 
+﻿using Microsoft.EntityFrameworkCore;
+using SchoolManagmentSystem.DAL.Models;
+ 
 ﻿using SchoolManagmentSystem.DAL.Models;
+ 
 using SchoolManagmentSystem.PL.Data;
 using SchoolManagmentSystemBLL.GenericRepo;
 using System;
@@ -11,6 +16,11 @@ namespace SchoolManagmentSystemBLL.Repos
 {
     public class SubjectRepo : GenericRepo<Subject>
     {
-        public SubjectRepo(ApplicationDbContext context) : base(context) { }
+
+        public SubjectRepo(ApplicationDbContext context) : base(context)
+        {
+
+        }
+
     }
 }

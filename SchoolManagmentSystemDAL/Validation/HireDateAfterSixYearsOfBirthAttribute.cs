@@ -1,4 +1,4 @@
-﻿using SchoolManagmentSystemDAL.ViewModels;
+﻿using SchoolManagementSystemDAL.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

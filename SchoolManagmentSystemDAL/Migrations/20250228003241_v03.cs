@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace SchoolManagmentSystemDAL.Migrations
+namespace SchoolManagementSystemDAL.Migrations
 {
     /// <inheritdoc />
     public partial class v03 : Migration
