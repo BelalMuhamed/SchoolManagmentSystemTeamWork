@@ -22,12 +22,12 @@ namespace SchoolManagmentSystem.DAL.Models
         [ForeignKey("ExamId")]
         public virtual Exam Exam { get; set; } = null!;
 
-        public int CorrectAnswerId { get; set; }
+        public int? CorrectAnswerId { get; set; }
 
         [ForeignKey("CorrectAnswerId")]
         public virtual Answer? CorrectAnswer { get; set; }
 
-        public virtual List<Answer> Answers { get; } = new List<Answer>();
+        public virtual List<Answer> Answers { get; set; } = new List<Answer>();
     }
 
 }

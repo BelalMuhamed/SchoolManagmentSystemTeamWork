@@ -25,6 +25,11 @@ namespace SchoolManagmentSystem.DAL.Models
 
         [ForeignKey("ExamId")]
         public virtual Exam? Exam { get; set; }
+
+        public int SubjectId { get; set; }
+
+        [ForeignKey("SubjectId")]
+        public virtual Subject? Subject { get; set; }
     }
 
 }

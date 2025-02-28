@@ -127,6 +127,19 @@ namespace SchoolManagmentSystemBLL.Mapping
                 desc.TeacherName = src.User.UserName;
                 
             }).ReverseMap();
+
+            CreateMap<Exam, ExamVM>().AfterMap((src, desc) => {
+                desc.TeacherId = src.TeacherId;
+                desc.Time = src.Time;
+                desc.TotalDegree = src.TotalDegree;
+                desc.MinDegree = src.MinDegree;
+            }).ReverseMap();
+
+            CreateMap<Question, QuestionVM>()
+           .ForMember(dest => dest.Answers, opt => opt.MapFrom(src => src.Answers))
+           .ReverseMap();
+
+            CreateMap<Answer, AnswerVM>().ReverseMap();
         }
 
 

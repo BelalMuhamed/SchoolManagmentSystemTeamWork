@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolManagmentSystem.PL.Data;
 
@@ -11,9 +12,11 @@ using SchoolManagmentSystem.PL.Data;
 namespace SchoolManagmentSystemDAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250228202517_v05")]
+    partial class v05
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -381,7 +384,7 @@ namespace SchoolManagmentSystemDAL.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
-                    b.Property<int?>("CorrectAnswerId")
+                    b.Property<int>("CorrectAnswerId")
                         .HasColumnType("int");
 
                     b.Property<int>("ExamId")
@@ -704,7 +707,9 @@ namespace SchoolManagmentSystemDAL.Migrations
                 {
                     b.HasOne("SchoolManagmentSystem.DAL.Models.Answer", "CorrectAnswer")
                         .WithMany()
-                        .HasForeignKey("CorrectAnswerId");
+                        .HasForeignKey("CorrectAnswerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SchoolManagmentSystem.DAL.Models.Exam", "Exam")
                         .WithMany("Questions")
