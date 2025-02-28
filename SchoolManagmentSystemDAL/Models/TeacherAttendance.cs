@@ -6,14 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolManagmentSystem.DAL.Models
 {
     [Table("TeacherAttendances")]
+    [PrimaryKey(nameof(TeacherId),nameof(Date))]
     public class TeacherAttendance
     {
-        [Key]
-        public int Id { get; set; }
+       
 
         [Required]
         public string TeacherId {get; set; }
@@ -25,7 +26,8 @@ namespace SchoolManagmentSystem.DAL.Models
         public AttendanceStatus Status { get; set; }
 
         [Required]
-        public DateTime Date { get; set; }
+        public DateOnly Date { get; set; }
+
     }
 
     public enum AttendanceStatus

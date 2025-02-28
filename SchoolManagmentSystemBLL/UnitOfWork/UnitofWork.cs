@@ -7,6 +7,7 @@ using SchoolManagmentSystemBLL.GenericRepo;
 using SchoolManagmentSystemBLL.Repos;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
         ClassRepo classRepo;
         GenericRepo<Subject> SubRepo;
         TeacherRepo teacherRepo;
-
+        
         ManageTeacherAttendanceRepo manageTeacherAttendanceRepo;
 
 
@@ -95,6 +96,8 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
                 return manageTeacherAttendanceRepo;
             }
         }
+
+       
         public async  Task<int> save()
         {
             return  await context.SaveChangesAsync();

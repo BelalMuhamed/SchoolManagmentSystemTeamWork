@@ -21,7 +21,7 @@ namespace SchoolManagmentSystemPL.Controllers
             mapper = _mapper;
         }
         [HttpGet]
-        public async Task<IActionResult> Index(DateTime? daydate)
+        public async Task<IActionResult> Index(DateOnly? daydate)
         {
 
             List<TeacherAttendance> teacherAttendances =await  unit.manageteacherAttendanceRepo.GetTeachersAttendanceByDate(daydate);
@@ -32,5 +32,43 @@ namespace SchoolManagmentSystemPL.Controllers
             }
             return View(listteacherAttendancesVM);
         }
+        [HttpGet]
+        public async Task<IActionResult> SubmitAttendance()
+        {
+            List<Teacher> listteachers = await unit.TeacherRepo.GetAllAsync();
+            List<TeacherAttendanceVM> TeachersAttendanceList = mapper.Map<List<TeacherAttendanceVM>>(listteachers);
+            return View(TeachersAttendanceList);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+       
+        public async  Task<IActionResult> SubmitAttendance(List<TeacherAttendanceVM> teacherAttendances)
+        {
+            if(ModelState.IsValid)
+            {
+                List<TeacherAttendance> addedTeacherattendancelist = mapper.Map<List<TeacherAttendance>>(teacherAttendances);
+                try
+                {
+                    await unit.manageteacherAttendanceRepo.AddAttendanceOfAllTeachersAysnc(addedTeacherattendancelist);
+
+
+                    await unit.save();
+
+
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return BadRequest();
+
+                }
+
+
+            }
+
+
+            return BadRequest();
+        }
+
     }
 }

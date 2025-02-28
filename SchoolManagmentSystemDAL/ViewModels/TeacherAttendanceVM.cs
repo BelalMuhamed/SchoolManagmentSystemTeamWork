@@ -19,10 +19,10 @@ namespace SchoolManagmentSystemDAL.ViewModels
         public string? TeacherName { get; set; }
 
 
-        
+        [Required(ErrorMessage ="You Must Fill This Filed")]
         public AttendanceStatus Status { get; set; }
 
 
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateOnly Date { get; set; } = DateOnly.FromDateTime(DateTime.Now);
     }
 }

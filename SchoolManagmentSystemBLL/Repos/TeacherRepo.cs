@@ -36,5 +36,9 @@ namespace SchoolManagmentSystemBLL.GenericRepo
         {
             return await context.Teachers.FirstOrDefaultAsync(t => t.UserId == Id);
         }
+        public async Task<List<Teacher>> GetAllAsync()
+        {
+            return await context.Teachers.Include(t => t.User).Where(u => u.User.IsDeleted == false).ToListAsync();
+        }
     }
 }
