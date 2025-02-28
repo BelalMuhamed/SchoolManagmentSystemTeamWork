@@ -4,7 +4,9 @@ using SchoolManagmentSystem.DAL.Extend;
 using SchoolManagmentSystem.DAL.Models;
 using SchoolManagmentSystem.PL.Data;
 using SchoolManagmentSystemBLL.GenericRepo;
+using SchoolManagmentSystemBLL.IGenericRepos;
 using SchoolManagmentSystemBLL.Repos;
+using SchoolManagmentSystemBLL.IGenericRepos;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -19,10 +21,10 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
         private readonly ApplicationDbContext context;
         public UserManager<ApplicationUser> user;
         public SignInManager<ApplicationUser> sign;
-        
+        public IgenericRepo<Subject> subrepo;
         StudentRepo studentRepo;
         SubjectRepo subjectRepo;
-
+        
          GenericRepo<Class>classRepo;   
      TeacherRepo teacherRepo;
         

@@ -1,0 +1,56 @@
+﻿@model SchoolManagmentSystem.DAL.Models.StudentDegree
+
+@{
+    ViewData["Title"] = "Create Student Degree";
+}
+
+<h2>Create Student Degree</h2>
+
+<!-- Form to create a new student degree -->
+<form asp-action="Create">
+    <!-- Select student -->
+    <div class="form-group">
+        <label for="StudentId">Student</label>
+        <select asp-for="StudentId" class="form-control" asp-items="ViewBag.Students"></select>
+    </div>
+
+    <!-- Select subject -->
+    <div class="form-group">
+        <label for="SubjectId">Subject</label>
+        <select asp-for="SubjectId" class="form-control" asp-items="ViewBag.Subjects"></select>
+    </div>
+
+    <!-- Select class -->
+    <div class="form-group">
+        <label for="ClassId">Class</label>
+        <select asp-for="ClassId" class="form-control" asp-items="ViewBag.Classes"></select>
+    </div>
+
+    <!-- Select teacher -->
+    <div class="form-group">
+        <label for="TeacherId">Teacher</label>
+        <select asp-for="TeacherId" class="form-control" asp-items="ViewBag.Teachers"></select>
+    </div>
+
+    <!-- Input degree -->
+    <div class="form-group">
+        <label for="Degree">Degree</label>
+        <input asp-for="Degree" class="form-control" type="number" min="0" max="100" />
+    </div>
+
+    <!-- Select status -->
+    <div class="form-group">
+        <label for="Status">Status</label>
+        <select asp-for="Status" class="form-control">
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="F">F</option>
+        </select>
+    </div>
+
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
