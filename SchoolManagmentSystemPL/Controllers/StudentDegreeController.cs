@@ -44,7 +44,7 @@ namespace SchoolManagmentSystem.Controllers
 
         // Handle form submission for creating a new student degree
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(StudentDegree studentDegree)
         {
             if (ModelState.IsValid)
