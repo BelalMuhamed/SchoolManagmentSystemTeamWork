@@ -118,8 +118,15 @@ namespace SchoolManagmentSystem.Controllers
             var subject = await _context.Subjects.FindAsync(id);
             if (subject != null)
             {
-                _context.Subjects.Remove(subject);
-                await _context.SaveChangesAsync();
+                try
+                {
+                    _context.Subjects.Remove(subject);
+                    await _context.SaveChangesAsync();
+                }
+                catch
+                {
+                    return NotFound();
+                }
             }
 
             return RedirectToAction(nameof(Index));

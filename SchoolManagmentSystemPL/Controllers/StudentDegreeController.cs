@@ -72,7 +72,6 @@ namespace SchoolManagmentSystem.Controllers
 
         // Handle form submission for updating a student degree
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(StudentDegree studentDegree)
         {
             if (ModelState.IsValid)

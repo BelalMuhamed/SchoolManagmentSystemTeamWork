@@ -1,26 +1,31 @@
-﻿
-@* @{ *@
-@*     ViewData["Title"] = "Take Attendance"; *@
-@* } *@
+﻿@model StudentAttendance
 
-@* <h2>Take Attendance</h2> *@
+@{
+    ViewData["Title"] = "Add Attendance";
+}
 
-@* <form asp-action="Create"> *@
-@*     <div class="form-group"> *@
-@*         <label for="UserId"> Chose Student</label> *@
-@*         <select asp-for="StudentId" class="form-control" asp-items="@(new SelectList(ViewBag.Users, "Id", "UserName"))"> *@
-@*             <option value="">-- Chose Student --</option> *@
-@*         </select> *@
-@*     </div> *@
+<h2>Add Attendance</h2>
 
-@*     <div class="form-group"> *@
-@*         <label for="Status">Status</label> *@
-@*         <select asp-for="Status" class="form-control"> *@
-@*             <option value="Present">Presint</option> *@
-@*             <option value="Absent">o</option> *@
-@*         </select> *@
-@*     </div> *@
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label for="StudentId">Student</label>
+        <select asp-for="StudentId" class="form-control" required>
+            <option value="">-- Select Student --</option>
+            @foreach (var student in ViewBag.Students)
+            {
+                <option value="@student.UserId">@student.User.UserName</option>
+            }
+        </select>
+    </div>
 
-@*     <button type="submit" class="btn btn-primary">Save</button> *@
-@* </form> *@
+    <div class="form-group">
+        <label for="Status">Attendance Status</label>
+        <select asp-for="Status" class="form-control" required>
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+        </select>
+    </div>
 
+    <button type="submit" class="btn btn-success">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</form>
