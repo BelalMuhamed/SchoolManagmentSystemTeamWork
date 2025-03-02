@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SchoolManagmentSystem.DAL.Models
+
 {
     [PrimaryKey(nameof(UserId),nameof(ExamId),nameof(ClassId))]
     [Table("UserExams")]

@@ -20,7 +20,7 @@ namespace SchoolManagmentSystemBLL.Repos
             var classes = await  context.Classes
             .Include(c => c.classsubjesct)
                 .ThenInclude(cs => cs.Subject)
-            .Include(c => c.User) 
+            .Include(c => c.manager).ThenInclude(c=>c.User) 
             .ToListAsync();
 
             return   classes;

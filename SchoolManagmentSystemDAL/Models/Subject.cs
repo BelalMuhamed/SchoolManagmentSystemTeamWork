@@ -1,5 +1,5 @@
 ﻿using SchoolManagmentSystem.DAL.Extend;
-using SchoolManagementSystemDAL.Models;
+using SchoolManagementSystemDAL.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

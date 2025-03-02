@@ -40,5 +40,9 @@ namespace SchoolManagmentSystemBLL.GenericRepo
         {
             return await context.Teachers.Include(t => t.User).Where(u => u.User.IsDeleted == false).ToListAsync();
         }
+        public async   Task<List<Teacher>> GetTeachersBySubjectId(int subid)
+        {
+            return await context.Teachers.Include(t => t.User).Where(u => u.User.IsDeleted == false && u.SubjectId== subid).ToListAsync();
+        }
     }
 }

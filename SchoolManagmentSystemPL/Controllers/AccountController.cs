@@ -82,7 +82,7 @@ namespace SchoolManagmentSystemPL.Controllers
                         }
                         else if (User.IsInRole("Teacher"))
                         {
-                            return RedirectToAction("register", "Account");
+                            return RedirectToAction("Index", "Home");
                         }
                     }
                 }

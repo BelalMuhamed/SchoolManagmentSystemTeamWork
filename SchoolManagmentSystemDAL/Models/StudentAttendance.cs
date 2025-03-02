@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagementSystemDAL.Models
+namespace SchoolManagmentSystem.DAL.Models
+
 {
     [Table("StudentAttendances")]
     public class StudentAttendance
@@ -33,6 +34,7 @@ namespace SchoolManagementSystemDAL.Models
         Present,
         Absent
     }
+
 
 
 }

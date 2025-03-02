@@ -1,0 +1,37 @@
+﻿@using SchoolManagmentSystemDAL.ViewModels
+@model ScheduleVM
+
+<h1 class="text-center">Class Schedule for Year @Model.SelectedYear</h1>
+
+<form asp-action="Schedule" method="get" class="mb-4">
+    <div class="input-group">
+        <select asp-for="SelectedYear" asp-items="new SelectList(Model.AvailableYears)" class="form-control">
+            <option value="">Select Year</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Show Schedule</button>
+    </div>
+</form>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Class</th>
+            <th>Subject</th>
+            <th>Teacher</th>
+            <th>Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var lesson in Model.Lessons)
+        {
+            <tr>
+                <td>@lesson.Date.ToString("yyyy-MM-dd")</td>
+                <td>@lesson.Class?.Name</td>
+                <td>@lesson.Subject?.Name</td>
+                <td>@lesson.Teacher?.User?.UserName</td>
+                <td>@lesson.StartTime.ToString("hh:mm tt") - @lesson.EndTime.ToString("hh:mm tt")</td>
+            </tr>
+        }
+    </tbody>
+</table>

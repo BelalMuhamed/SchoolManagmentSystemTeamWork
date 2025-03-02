@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SchoolManagmentSystem.DAL.Models
+
 {
     using Microsoft.EntityFrameworkCore;
     using System.ComponentModel.DataAnnotations;

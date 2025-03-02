@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SchoolManagmentSystem.PL.Models;
+using SchoolManagmentSystem.DAL.Models;
 
 namespace SchoolManagmentSystem.PL.Controllers
 {

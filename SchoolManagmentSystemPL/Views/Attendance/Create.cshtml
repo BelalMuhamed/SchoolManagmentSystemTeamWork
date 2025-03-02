@@ -1,27 +1,26 @@
-﻿@model  SchoolManagementSystemDAL.Models.StudentAttendance
+﻿
+@* @{ *@
+@*     ViewData["Title"] = "Take Attendance"; *@
+@* } *@
 
-@{
-    ViewData["Title"] = "Take Attendance";
-}
+@* <h2>Take Attendance</h2> *@
 
-<h2>Take Attendance</h2>
+@* <form asp-action="Create"> *@
+@*     <div class="form-group"> *@
+@*         <label for="UserId"> Chose Student</label> *@
+@*         <select asp-for="StudentId" class="form-control" asp-items="@(new SelectList(ViewBag.Users, "Id", "UserName"))"> *@
+@*             <option value="">-- Chose Student --</option> *@
+@*         </select> *@
+@*     </div> *@
 
-<form asp-action="Create">
-    <div class="form-group">
-        <label for="UserId"> Chose Student</label>
-        <select asp-for="StudentId" class="form-control" asp-items="@(new SelectList(ViewBag.Users, "Id", "UserName"))">
-            <option value="">-- Chose Student --</option>
-        </select>
-    </div>
+@*     <div class="form-group"> *@
+@*         <label for="Status">Status</label> *@
+@*         <select asp-for="Status" class="form-control"> *@
+@*             <option value="Present">Presint</option> *@
+@*             <option value="Absent">o</option> *@
+@*         </select> *@
+@*     </div> *@
 
-    <div class="form-group">
-        <label for="Status">Status</label>
-        <select asp-for="Status" class="form-control">
-            <option value="Present">Presint</option>
-            <option value="Absent">o</option>
-        </select>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Save</button>
-</form>
+@*     <button type="submit" class="btn btn-primary">Save</button> *@
+@* </form> *@
 

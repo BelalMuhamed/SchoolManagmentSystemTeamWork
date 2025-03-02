@@ -1,0 +1,37 @@
+﻿@using SchoolManagmentSystemDAL.ViewModels
+@model AssignSubbjectWithTeachersToStudentVM
+
+<h2>Assign Teachers to Subjects</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="ClassId" />
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Subject Name</th>
+                <th>Select Teacher</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Subjects.Count; i++)
+            {
+                <tr>
+                    <td>@Model.Subjects[i].SubjectName</td>
+                    <td>
+                        <select asp-for="Subjects[i].SelectedTeacherId" class="form-control">
+                            <option value="">-- Select Teacher --</option>
+                            @foreach (var teacher in Model.Subjects[i].Teachers)
+                            {
+                                <option value="@teacher.UserId">@teacher.User.UserName</option>
+                            }
+                        </select>
+                        <input type="hidden" asp-for="Subjects[i].SubjectId" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Save Assignments</button>
+</form>

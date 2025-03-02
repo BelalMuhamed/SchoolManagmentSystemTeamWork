@@ -46,11 +46,12 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapStaticAssets();
+app.UseStaticFiles();
+
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Account}/{action=login}")
+    pattern: "{controller=Account}/{action=login}/{id?}")
     .WithStaticAssets();
 
 app.MapRazorPages()

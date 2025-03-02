@@ -21,19 +21,23 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
         private readonly ApplicationDbContext context;
         public UserManager<ApplicationUser> user;
         public SignInManager<ApplicationUser> sign;
-        public IgenericRepo<Subject> subrepo;
+        private ScheduleRepo _classLessonRepo;
+        StudentDegreeRepo stuDegreeRepo;
         StudentRepo studentRepo;
         ClassRepo classRepo;
-        GenericRepo<Subject> SubRepo;
+        SubjectRepo SubRepo;
         TeacherRepo teacherRepo;
+        ClassAndSubjectRepo classAndSubRepo;
         private GenericRepo<Exam> examRepo;
         private GenericRepo<UserExam> userExamRepo;
-        private GenericRepo<StudentDegree> studentDegreeRepo;
+      
         private ClassExamRepo classExam;
         private QuestionRepo questionRepo;
         private AnswerRepo answerRepo;
         ManageTeacherAttendanceRepo manageTeacherAttendanceRepo;
+        private StudentAttendanceRepo _studentattendanceRepo;
 
+        
 
 
         public UnitofWork(ApplicationDbContext context,UserManager<ApplicationUser> user, SignInManager<ApplicationUser> sign)
@@ -51,22 +55,40 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
                 return studentRepo;
             }
         }
+     
 
+        public ClassAndSubjectRepo ClassAndSubjectRepo
+        {
+            get
+            {
+                if (classAndSubRepo == null)
+                    classAndSubRepo = new ClassAndSubjectRepo(context);
+                return classAndSubRepo;
+            }
+        }
 
         public SubjectRepo SubjectRepo
         {
             get
             {
-                if (subjectRepo == null)
-                    subjectRepo = new SubjectRepo(context);
-                return subjectRepo;
+                if (SubRepo == null)
+                    SubRepo = new SubjectRepo(context);
+                return SubRepo;
             }
         }
-        
-        
-        
-        
-        
+
+        public ScheduleRepo ClassLessonRepo
+        {
+            get
+            {
+                if (_classLessonRepo == null)
+                    _classLessonRepo = new ScheduleRepo(context);
+                return _classLessonRepo;
+            }
+        }
+
+
+
         public TeacherRepo TeacherRepo
         {
             get
@@ -105,13 +127,13 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
                 return examRepo;
             }
         }
-        public GenericRepo<StudentDegree> StudentDegree
+        public StudentDegreeRepo StudentDegree
         {
             get
             {
-                if (studentDegreeRepo == null)
-                    studentDegreeRepo = new GenericRepo<StudentDegree>(context);
-                return studentDegreeRepo;
+                if (stuDegreeRepo == null)
+                    stuDegreeRepo = new StudentDegreeRepo(context);
+                return stuDegreeRepo;
             }
         }
 
@@ -135,6 +157,15 @@ namespace SchoolManagmentSystemBLL.UnitOfWork
             }
         }
 
+        public StudentAttendanceRepo StudentAttendanceRepo
+        {
+            get
+            {
+                if (_studentattendanceRepo == null)
+                    _studentattendanceRepo = new StudentAttendanceRepo(context);
+                return _studentattendanceRepo;
+            }
+        }
 
         public QuestionRepo QuestionRepo => questionRepo ??= new QuestionRepo(context);
         public AnswerRepo AnswerRepo => answerRepo ??= new AnswerRepo(context);

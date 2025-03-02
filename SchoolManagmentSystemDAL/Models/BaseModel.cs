@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SchoolManagmentSystem.DAL.Models
+
 {
     public abstract class BaseModel
     {

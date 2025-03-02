@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SchoolManagmentSystem.DAL.Models
+
 {
 
     [Table("ClassExams")]
@@ -21,10 +22,10 @@ namespace SchoolManagmentSystem.DAL.Models
         public virtual Class? Class { get; set; }
 
         [Required]
-        public int ExamId { get; set; }
+        public int? ExamId { get; set; }
 
         [ForeignKey("ExamId")]
-        public virtual Exam? Exam { get; set; }
+        public virtual Exam Exam { get; set; }
 
         public int SubjectId { get; set; }
 

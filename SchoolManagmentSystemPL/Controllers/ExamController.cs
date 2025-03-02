@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using SchoolManagmentSystem.DAL.Extend;
 using SchoolManagmentSystem.DAL.Models;
 using SchoolManagmentSystemBLL.UnitOfWork;
-using SchoolManagmentSystemDAL.ViewModels;
 using AutoMapper;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using Microsoft.AspNetCore.Authorization;
+using SchoolManagementSystemDAL.ViewModels;
 
 public class ExamController : Controller
 {
@@ -39,20 +39,21 @@ public class ExamController : Controller
         {
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             model.TeacherId = userId;
+            var exam = _mapper.Map<Exam>(model);
+            await _unitofWork.ExamRepo.Add(exam);
+            await _unitofWork.save();
             ClassExam classExam = new ClassExam
             {
                 ClassId = model.ClassId ?? 0,
                 SubjectId = model.SubjectId ?? 0,
-                ExamId = model.Id ?? 0
+                ExamId = exam.Id
             };
             await _unitofWork.ClassExamRepo.Add(classExam);
-            var exam = _mapper.Map<Exam>(model);
-            await _unitofWork.ExamRepo.Add(exam);
             await _unitofWork.save();
-
             return RedirectToAction("CreateQuestions", new { examId = exam.Id, count = model.NumberOfQuestions });
         }
         return View(model);
+
     }
 
     [Authorize(Roles = "Teacher")]
@@ -155,7 +156,7 @@ public class ExamController : Controller
         {
             return View();
         }
-        var examEntity = await _unitofWork.ExamRepo.GetById(classExam.ExamId);
+        var examEntity = await _unitofWork.ExamRepo.GetById((int)classExam.ExamId);
         if (examEntity == null)
         {
             return View();

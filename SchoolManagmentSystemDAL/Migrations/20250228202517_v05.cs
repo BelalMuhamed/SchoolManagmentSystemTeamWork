@@ -28,7 +28,7 @@ namespace SchoolManagmentSystemDAL.Migrations
                 column: "SubjectId",
                 principalTable: "Subjects",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.NoAction);
         }
 
         /// <inheritdoc />

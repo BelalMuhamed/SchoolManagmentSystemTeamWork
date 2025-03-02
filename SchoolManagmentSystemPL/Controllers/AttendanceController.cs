@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using SchoolManagmentSystem.DAL;
 using SchoolManagmentSystem.DAL.Models;
 using SchoolManagmentSystem.PL.Data;
-using SchoolManagementSystemDAL.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

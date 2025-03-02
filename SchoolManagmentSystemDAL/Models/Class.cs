@@ -6,9 +6,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SchoolManagementSystemDAL.Models;
+using SchoolManagementSystemDAL.ViewModels;
 
 namespace SchoolManagmentSystem.DAL.Models
+
 {
     [Table("Classes")]
     public class Class : BaseModel
@@ -21,7 +22,7 @@ namespace SchoolManagmentSystem.DAL.Models
         public string? ManagerId { get; set; } 
 
         [ForeignKey("ManagerId")]
-        public virtual ApplicationUser User { get; set; }
+        public virtual Teacher manager { get; set; }
         public virtual List<ClassAndSubjects> classsubjesct { get; } = new List<ClassAndSubjects>();
 
     }

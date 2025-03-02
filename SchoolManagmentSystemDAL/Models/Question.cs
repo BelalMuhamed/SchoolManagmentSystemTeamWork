@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace SchoolManagmentSystem.DAL.Models
+
 {
     [Table("Questions")]
     public class Question : BaseModel

@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagementSystemDAL.Models
+namespace SchoolManagmentSystem.DAL.Models
+
 {
     [PrimaryKey(nameof(classId), nameof(SubjectId))]
     public class ClassAndSubjects

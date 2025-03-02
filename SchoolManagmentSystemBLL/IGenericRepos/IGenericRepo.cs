@@ -15,6 +15,7 @@ namespace SchoolManagmentSystemBLL.IGenericRepos
         public void Delete(int id);
         public void Update(T item);
         public Task Add(T item);
-
+        public Task AddRange(IEnumerable<T> items);
+        
     }
 }

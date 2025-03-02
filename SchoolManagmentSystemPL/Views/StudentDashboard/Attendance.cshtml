@@ -1,0 +1,26 @@
+﻿@using SchoolManagmentSystemDAL.ViewModels
+@model List<StudentAttendanceVM>
+
+<h1 class="text-center">Attendance Record</h1>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-primary">
+        <tr>
+            <th>Student Name</th>
+            <th>Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.StudentName</td>
+                <td>@item.Date.ToString("yyyy-MM-dd")</td>
+                <td class="@(item.Status == AttendanceStatus.Present ? "text-success" : "text-danger")">
+                    @item.Status
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

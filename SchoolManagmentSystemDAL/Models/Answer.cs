@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SchoolManagmentSystem.DAL.Models
+
 {
     [Table("Answers")]
     public class Answer : BaseModel

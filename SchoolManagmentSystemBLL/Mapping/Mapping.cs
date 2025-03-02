@@ -1,13 +1,9 @@
 ﻿using AutoMapper;
 using SchoolManagmentSystem.DAL.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SchoolManagementSystemDAL.ViewModels;
 using SchoolManagmentSystem.DAL.Extend;
-using Microsoft.AspNetCore.Routing.Constraints;
+using SchoolManagmentSystemDAL.ViewModels;
+using SchoolManagementSystemDAL.Migrations;
 
 namespace SchoolManagmentSystemBLL.Mapping
 {
@@ -78,9 +74,9 @@ namespace SchoolManagmentSystemBLL.Mapping
                 desc.ClassId = src.Id;
                 desc.ClassName = src.Name;
                 desc.ManagerId = src.ManagerId;
-                desc.ManagerName = src.User.UserName;
+                desc.ManagerName = src.manager.User.UserName;
                 desc.Subjects = src.classsubjesct.Where(c => c.classId == desc.ClassId).Select(s => s.Subject).ToList();
-
+                
             });
             CreateMap<Teacher, TeacherVM>().AfterMap((src, desc) => {
                 desc.UserId = src.UserId;
@@ -116,7 +112,8 @@ namespace SchoolManagmentSystemBLL.Mapping
                 desc.gender = src.User.Gender;
                 desc.HireDate = src.User.HireDate;
             }).ReverseMap();
-            CreateMap<TeacherAttendance, TeacherAttendanceVM>().AfterMap((src, desc) => {
+            _ = CreateMap<TeacherAttendance, TeacherAttendanceVM>().AfterMap((src, desc) =>
+            {
                 desc.TeacherId = src.TeacherId;
                 desc.TeacherName = src.teacher.User.UserName;
                 desc.Date = src.Date;
@@ -140,6 +137,16 @@ namespace SchoolManagmentSystemBLL.Mapping
            .ReverseMap();
 
             CreateMap<Answer, AnswerVM>().ReverseMap();
+            CreateMap<StudentAttendance, StudentAttendanceVM>().AfterMap((src, desc) => {
+                desc.StudentId = src.StudentId;
+                desc.StudentName = src.student.User.UserName;
+                desc.Status = src.Status;
+                desc.Date = src.Date;
+
+            }).ReverseMap();
+
+
+
         }
 
 
@@ -148,8 +155,7 @@ namespace SchoolManagmentSystemBLL.Mapping
 
 
 
-
-            }
+    }
           
         }
 

@@ -12,22 +12,19 @@ namespace SchoolManagementSystemDAL.ViewModels
   public  class ClassVM
     {
 
-        public int ClassId { get; set; }
-
+        public int? ClassId { get; set; }
+        
         public string ClassName { get; set; }
 
 
-        public string? ManagerId { get; set; }
-        public string  ManagerName { get; set; }
-
-
-
-
-
-
+        public string ManagerId { get; set; }
+        public string?  ManagerName { get; set; }
+       
+        public List<int> SelectedSubjectIds { get; set; } = new List<int>();
+        
         public  List<Subject>? Subjects { get; set; } = new List<Subject>();
         public  List<Teacher>? Managers { get; set; } = new List<Teacher>();
-
+        
 
 
 

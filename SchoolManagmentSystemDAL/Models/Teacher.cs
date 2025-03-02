@@ -6,10 +6,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SchoolManagementSystemDAL.Models;
 
-namespace SchoolManagmentSystem.DAL.Models 
-{ 
+namespace SchoolManagmentSystem.DAL.Models
+
+{
 
     [Table("Teachers")]
     public class Teacher

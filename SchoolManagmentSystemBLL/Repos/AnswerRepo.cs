@@ -22,5 +22,10 @@ namespace SchoolManagmentSystemBLL.Repos
                             .FirstOrDefaultAsync(x => x.Text == text); 
 
         }
+        public async Task AddRange(IEnumerable<Answer> items)
+        {
+            await context.Answers.AddRangeAsync(items);
+        }
+        
     }
 }

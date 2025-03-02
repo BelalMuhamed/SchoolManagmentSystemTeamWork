@@ -36,6 +36,10 @@ namespace SchoolManagmentSystemBLL.GenericRepo
         {
             return await context.Students.FirstOrDefaultAsync(s => s.UserId == Id);
         }
+        public async Task<List<Student>> GetByClassID(int classid)
+        {
+            return  await context.Students.Where(s=>s.ClassId==classid && s.User.IsDeleted==false).ToListAsync();
+        }
     }
 }
 

@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using SchoolManagmentSystem.DAL.Extend;
 using SchoolManagmentSystem.DAL.Models;
-using SchoolManagementSystemDAL.Models;
 
 namespace SchoolManagmentSystem.PL.Data
 {

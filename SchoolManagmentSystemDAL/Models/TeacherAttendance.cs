@@ -9,6 +9,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
 namespace SchoolManagmentSystem.DAL.Models
+
 {
     [Table("TeacherAttendances")]
     [PrimaryKey(nameof(TeacherId),nameof(Date))]
@@ -30,11 +31,6 @@ namespace SchoolManagmentSystem.DAL.Models
 
     }
 
-    public enum AttendanceStatus
-    {
-        Present,
-        Absent
-    }
-
+   
 
 }
