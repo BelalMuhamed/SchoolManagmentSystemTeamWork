@@ -50,7 +50,7 @@
 <!-- Buttons -->
 <div class="text-center mt-4">
     <button type="button" class="btn btn-success px-4" id="saveQuestionsBtn" onclick="submitQuestions()">Save Questions</button>
-    <a asp-action="Index" asp-controller="Exams" asp-route-examId="@ViewBag.ExamId" class="btn btn-outline-secondary px-4">Cancel</a>
+    <a asp-action="Index" asp-controller="TeacherDashboard" asp-route-examId="@ViewBag.ExamId" class="btn btn-outline-secondary px-4">Cancel</a>
 </div>
 
 @section Scripts {
@@ -84,7 +84,7 @@
                     Answers: answers
                 });
             });
-
+            console.log(questions)
             if (hasEmptyFields) {
                 alert("Please fill in all questions and answers before submitting.");
                 return;
@@ -100,7 +100,7 @@
             headers: { "RequestVerificationToken": token },
             data: JSON.stringify(questions),
             success: function (response) {
-                alert("Questions saved successfully!");
+                window.location.href = "/TeacherDashboard/Index";
             },
             error: function (xhr) {
                 alert("Error saving questions: " + xhr.responseText);

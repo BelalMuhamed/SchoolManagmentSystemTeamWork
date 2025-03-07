@@ -30,7 +30,7 @@ public class ExamController : Controller
         return View();
     }
 
-    [Authorize(Roles = "Teacher")]
+
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(ExamVM model)
@@ -80,7 +80,7 @@ public class ExamController : Controller
         return View(questions);
     }
 
-    [Authorize(Roles = "Teacher")]
+
     [HttpPost]
     [ValidateAntiForgeryToken]     
     public async Task<IActionResult> CreateQuestions([FromBody] List<QuestionVM> model)
@@ -143,8 +143,9 @@ public class ExamController : Controller
 
         await _unitofWork.save();
 
-        return RedirectToAction("Index", "Home"); 
+        return RedirectToAction("Index", "TeacherDashboard"); 
     }
+
 
     [Authorize(Roles = "Student")]
     [HttpGet]
@@ -157,6 +158,7 @@ public class ExamController : Controller
             return View();
         }
         var examEntity = await _unitofWork.ExamRepo.GetById((int)classExam.ExamId);
+
         if (examEntity == null)
         {
             return View();
@@ -219,7 +221,7 @@ public class ExamController : Controller
         await _unitofWork.StudentDegree.Add(studentDegree);
         await _unitofWork.UserExam.Add(userExam);
         await _unitofWork.save();
-        return RedirectToAction("Index", "Home");
+        return RedirectToAction("Schedule", "StudentDashboard");
     }
 
 }

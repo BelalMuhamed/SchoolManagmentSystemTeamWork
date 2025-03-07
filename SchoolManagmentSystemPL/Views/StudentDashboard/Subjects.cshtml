@@ -1,0 +1,18 @@
+﻿<h1 class="text-center">Attendance Record</h1>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-primary">
+        <tr>
+            <th>Subject</th>
+            <th>Exam</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Subjects)
+        {
+            <tr>
+                <td>@item</td>
+                </tr>
+        }
+    </tbody>
+</table>

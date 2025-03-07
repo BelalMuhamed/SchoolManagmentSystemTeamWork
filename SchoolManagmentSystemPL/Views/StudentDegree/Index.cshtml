@@ -4,38 +4,56 @@
     ViewData["Title"] = "Student Degrees";
 }
 
-<h2>Student Degrees</h2>
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Student Degrees</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Student</th>
-            <th>Subject</th>
-            <th>Class</th>
-            <th>Teacher</th>
-            <th>Degree</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var degree in Model)
-        {
-            <tr>
-                <td>@degree.Student?.UserId</td>
-                <td>@degree.Subject?.Name</td>
-                <td>@degree.Class?.Name</td>
-                <td>@degree.Teacher?.UserId</td>
-                <td>@degree.Degree</td>
-                <td>@degree.Status</td>
-                <td>
-                    <a asp-action="Edit" asp-route-studentId="@degree.StudentId" asp-route-subjectId="@degree.SubjectId" asp-route-classId="@degree.ClassId" asp-route-teacherId="@degree.TeacherId" class="btn btn-warning">Edit</a>
-                    <a asp-action="Delete" asp-route-studentId="@degree.StudentId" asp-route-subjectId="@degree.SubjectId" asp-route-classId="@degree.ClassId" asp-route-teacherId="@degree.TeacherId" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover shadow-sm">
+            <thead class="table-dark">
+                <tr>
+                    <th>Student</th>
+                    <th>Subject</th>
+                    <th>Class</th>
+                    <th>Teacher</th>
+                    <th>Degree</th>
+                    <th>Status</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var degree in Model)
+                {
+                    <tr>
+                        <td>@degree.Student?.User.UserName</td>
+                        <td>@degree.Subject?.Name</td>
+                        <td>@degree.Class?.Name</td>
+                        <td>@degree.Teacher?.User.UserName</td>
+                        <td>@degree.Degree</td>
+                        <td>
+                            <span class="badge @(degree.Status == StatusDegree.F ? "bg-danger" : "bg-success")">@degree.Status</span>
+                        </td>
+                        <td class="text-center">
+                            <a asp-action="Edit" asp-route-studentId="@degree.StudentId" asp-route-subjectId="@degree.SubjectId" asp-route-classId="@degree.ClassId" asp-route-teacherId="@degree.TeacherId" class="text-info">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <a asp-action="Delete" asp-route-studentId="@degree.StudentId" asp-route-subjectId="@degree.SubjectId" asp-route-classId="@degree.ClassId" asp-route-teacherId="@degree.TeacherId" class="text-danger">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 
-<a asp-action="Create" class="btn btn-primary">Add New Degree</a>
+    <div class="text-center mt-3">
+        <a asp-action="Create" class="btn btn-primary btn-lg">
+            Add New Degree
+        </a>
+    </div>
+</div>
+
 

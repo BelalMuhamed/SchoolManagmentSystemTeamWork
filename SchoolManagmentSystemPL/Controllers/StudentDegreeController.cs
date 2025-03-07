@@ -1,31 +1,28 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SchoolManagmentSystem.DAL;
 using SchoolManagmentSystem.DAL.Models;
 using SchoolManagmentSystem.PL.Data;
+using SchoolManagmentSystemDAL.ViewModels;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace SchoolManagmentSystem.Controllers
 {
+    [Authorize(Roles = "Teacher")]
     public class StudentDegreeController : Controller
     {
         private readonly ApplicationDbContext _context;
-
         public StudentDegreeController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // Display the list of student degrees
         public async Task<IActionResult> Index()
         {
             var studentDegrees = await _context.StudentDegrees
-                .Include(sd => sd.Student)
-                .Include(sd => sd.Subject)
-                .Include(sd => sd.Teacher)
-                .Include(sd => sd.Class)
                 .ToListAsync();
 
             return View(studentDegrees);
@@ -34,29 +31,48 @@ namespace SchoolManagmentSystem.Controllers
         // Show the create form
         public IActionResult Create()
         {
-            ViewBag.Students = new SelectList(_context.Students, "Id", "Name");
-            ViewBag.Subjects = new SelectList(_context.Subjects, "Id", "Name");
-            ViewBag.Classes = new SelectList(_context.Classes, "Id", "Name");
-            ViewBag.Teachers = new SelectList(_context.Teachers, "Id", "Name");
+            var model = new StudentDegreeVM
+            {
+                Students = _context.Students.ToList(),
+                Subjects = _context.Subjects.ToList(),
+                Classs = _context.Classes.ToList(),
+                Teachers = _context.Teachers.ToList()
+            };
 
-            return View();
+            return View(model);
         }
 
-        // Handle form submission for creating a new student degree
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(StudentDegree studentDegree)
+        public async Task<IActionResult> Create(StudentDegreeVM model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(studentDegree);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                model.Students = _context.Students.Include(s => s.User).ToList();
+                model.Subjects = _context.Subjects.ToList();
+                model.Classs = _context.Classes.ToList();
+                model.Teachers = _context.Teachers.Include(t => t.User).ToList();
+                return View(model);
             }
-            return View(studentDegree);
+
+            var studentDegree = new StudentDegree
+            {
+                StudentId = model.StudentId,
+                SubjectId = model.SubjectId,
+                ClassId = model.ClassId,
+                TeacherId = model.TeacherId,
+                Degree = model.Degree,
+                Status = model.Status
+            };
+
+            _context.StudentDegrees.Add(studentDegree);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+
         }
 
-        // Show the edit form for an existing student degree
         public async Task<IActionResult> Edit(string studentId, int subjectId, int classId, string teacherId)
         {
             var studentDegree = await _context.StudentDegrees
@@ -70,7 +86,6 @@ namespace SchoolManagmentSystem.Controllers
             return View(studentDegree);
         }
 
-        // Handle form submission for updating a student degree
         [HttpPost]
         public async Task<IActionResult> Edit(StudentDegree studentDegree)
         {
@@ -83,7 +98,6 @@ namespace SchoolManagmentSystem.Controllers
             return View(studentDegree);
         }
 
-        // Delete a student degree record
         public async Task<IActionResult> Delete(string studentId, int subjectId, int classId, string teacherId)
         {
             var studentDegree = await _context.StudentDegrees

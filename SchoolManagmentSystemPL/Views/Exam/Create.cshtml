@@ -3,26 +3,33 @@
     ViewData["Title"] = "Add New Exam";
 }
 <div class="container mt-4">
-    <div class="card shadow-lg rounded-4">
-        <div class="card-header bg-primary text-white text-center">
+    <div class="card shadow-sm border-0 rounded-3">
+        <div class="card-header bg-dark text-white text-center py-3">
             <h3 class="m-0">Create New Exam</h3>
         </div>
-        <div class="card-body">
+        <div class="card-body p-4">
             <form asp-action="Create" method="post">
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="mb-3">
-                    <label asp-for="SubjectId" class="form-label fw-bold">Subject</label>
-                    <select asp-for="SubjectId" class="form-select" asp-items="(SelectList)ViewBag.Subjects">
-                        <option value=""disabled selected>-- Select Subject --</option>
-                    </select>
-                    <span asp-validation-for="SubjectId" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="ClassId" class="form-label fw-bold">Class</label>
-                    <select asp-for="ClassId" class="form-select" asp-items="(SelectList)ViewBag.Classes">
-                        <option value=""disabled selected>-- Select Class --</option>
-                    </select>
-                    <span asp-validation-for="ClassId" class="text-danger"></span>
+                <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="SubjectId" class="form-label fw-bold">Subject</label>
+                            <select asp-for="SubjectId" class="form-select" asp-items="(SelectList)ViewBag.Subjects">
+                                <option value="" disabled selected>-- Select Subject --</option>
+                            </select>
+                            <span asp-validation-for="SubjectId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="ClassId" class="form-label fw-bold">Class</label>
+                            <select asp-for="ClassId" class="form-select" asp-items="(SelectList)ViewBag.Classes">
+                                <option value="" disabled selected>-- Select Class --</option>
+                            </select>
+                            <span asp-validation-for="ClassId" class="text-danger"></span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row">
@@ -33,7 +40,6 @@
                             <span asp-validation-for="Time" class="text-danger"></span>
                         </div>
                     </div>
-
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label asp-for="TotalDegree" class="form-label fw-bold">Total Degree</label>
@@ -43,27 +49,31 @@
                     </div>
                 </div>
 
-                <div class="mb-3">
-                    <label asp-for="MinDegree" class="form-label fw-bold">Minimum Degree</label>
-                    <input asp-for="MinDegree" type="number" class="form-control" min="0" max="100" step="0.1" placeholder="Enter minimum passing marks">
-                    <span asp-validation-for="MinDegree" class="text-danger"></span>
-                </div>
-
-                <div class="mb-3">
-                    <label asp-for="NumberOfQuestions" class="form-label fw-bold">Number of Questions</label>
-                    <input asp-for="NumberOfQuestions" type="number" class="form-control" min="1" max="100" placeholder="Enter number of questions">
-                    <span asp-validation-for="NumberOfQuestions" class="text-danger"></span>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="MinDegree" class="form-label fw-bold">Minimum Degree</label>
+                            <input asp-for="MinDegree" type="number" class="form-control" min="0" max="100" step="0.1" placeholder="Enter minimum passing marks">
+                            <span asp-validation-for="MinDegree" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="NumberOfQuestions" class="form-label fw-bold">Number of Questions</label>
+                            <input asp-for="NumberOfQuestions" type="number" class="form-control" min="1" max="100" placeholder="Enter number of questions">
+                            <span asp-validation-for="NumberOfQuestions" class="text-danger"></span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="d-flex justify-content-between mt-4">
-                    <a asp-action="Index" class="btn btn-secondary px-4">Back</a>
-                    <button type="submit" class="btn btn-primary px-4">Create Exam</button>
+                    <a asp-action="Index" asp-controller="TeacherDashboard" class="btn btn-outline-secondary px-4">Back</a>
+                    <button type="submit" class="btn btn-dark px-4">Create Exam</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

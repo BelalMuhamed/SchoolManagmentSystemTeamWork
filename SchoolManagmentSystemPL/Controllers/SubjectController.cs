@@ -1,19 +1,20 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SchoolManagmentSystem.DAL;
 using SchoolManagmentSystem.DAL.Models;
 using SchoolManagmentSystem.PL.Data;
 
 namespace SchoolManagmentSystem.Controllers
 {
-    [Authorize(Roles = "Admin")]  
+    [Authorize(Roles = "Admin")]
     public class SubjectsController : Controller
     {
+        //private readonly UnitofWork _unitOfWork;
         private readonly ApplicationDbContext _context;
 
         public SubjectsController(ApplicationDbContext context)
         {
+            //_unitOfWork = unitOfWork;
             _context = context;
         }
 

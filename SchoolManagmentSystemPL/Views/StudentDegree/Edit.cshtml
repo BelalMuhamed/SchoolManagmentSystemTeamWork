@@ -4,29 +4,41 @@
     ViewData["Title"] = "Edit Student Degree";
 }
 
-<h2>Edit Student Degree</h2>
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Edit Student Degree</h2>
 
-<form asp-action="Edit">
-    <input type="hidden" asp-for="StudentId" />
-    <input type="hidden" asp-for="SubjectId" />
-    <input type="hidden" asp-for="ClassId" />
-    <input type="hidden" asp-for="TeacherId" />
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form asp-action="Edit" class="p-4 border rounded shadow bg-white">
+                <input type="hidden" asp-for="StudentId" />
+                <input type="hidden" asp-for="SubjectId" />
+                <input type="hidden" asp-for="ClassId" />
+                <input type="hidden" asp-for="TeacherId" />
 
-    <div class="form-group">
-        <label for="Degree">Degree</label>
-        <input asp-for="Degree" class="form-control" type="number" min="0" max="100" />
+                <!-- Degree -->
+                <div class="mb-3">
+                    <label for="Degree" class="form-label">Degree</label>
+                    <input asp-for="Degree" class="form-control" type="number" min="0" max="100" required />
+                </div>
+
+                <!-- Status -->
+                <div class="mb-3">
+                    <label for="Status" class="form-label">Status</label>
+                    <select asp-for="Status" class="form-select">
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="F">F</option>
+                    </select>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="d-flex">
+                    <button type="submit" class="btn btn-primary me-2 w-50">Save Changes</button>
+                    <a asp-action="Index" class="btn btn-secondary w-50 ms-2">Cancel</a>
+                    </div>
+            </form>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label for="Status">Status</label>
-        <select asp-for="Status" class="form-control">
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-            <option value="F">F</option>
-        </select>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Save Changes</button>
-</form>
+</div>

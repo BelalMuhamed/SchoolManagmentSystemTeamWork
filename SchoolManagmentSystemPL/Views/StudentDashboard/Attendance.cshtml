@@ -6,7 +6,6 @@
 <table class="table table-bordered table-hover">
     <thead class="table-primary">
         <tr>
-            <th>Student Name</th>
             <th>Date</th>
             <th>Status</th>
         </tr>
@@ -15,9 +14,8 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.StudentName</td>
-                <td>@item.Date.ToString("yyyy-MM-dd")</td>
-                <td class="@(item.Status == AttendanceStatus.Present ? "text-success" : "text-danger")">
+                <td class="@(item.Status == AttendanceStatus.Present ? "text-success" : "text-danger")">@item.Date.ToString("yyyy-MM-dd")</td>
+                <td class="@(item.Status == AttendanceStatus.Present ? "bg-success" : "bg-danger")">
                     @item.Status
                 </td>
             </tr>

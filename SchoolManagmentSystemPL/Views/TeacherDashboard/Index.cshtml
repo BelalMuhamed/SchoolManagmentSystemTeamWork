@@ -1,0 +1,145 @@
+﻿@using SchoolManagmentSystemDAL.ViewModels
+@model TeacherDashboardVM
+
+@{
+    ViewData["Title"] = "Teacher Dashboard";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-center">Teacher Dashboard</h2>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Exams Created</h5>
+                    <p class="card-text">@Model.TotalExamsCreated</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">My Attendance This Week</h5>
+                    <p class="card-text">@Model.AttendanceThisWeek</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-white bg-dark mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Managed Class</h5>
+                    <p class="card-text">Class Name: @(Model.ManagedClassName ?? "No Class Assigned")</p>
+                    <p class="card-text">Total Students: @Model.TotalStudentsInClass</p>
+                    <p class="card-text">Total Subjects: @Model.TotalSubjectsInClass</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-9 text-center mx-auto">
+            <h4>My Attendance (Last 7 Days)</h4>
+            <canvas id="weeklyAttendanceChart"></canvas>
+        </div>
+    </div>
+    <h2 class="text-center mb-4 mt-4">Students in My Class</h2>
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Student Name</th>
+                <th>Degree</th>
+                <th>Attendance</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Students != null && Model.Students.Any())
+            {
+                @foreach (var student in Model.Students)
+                {
+                    <tr>
+                        <td>@(student.Name ?? "No Name")</td>
+                        <td>@student.Degree</td>
+                        <td>@student.Attendance</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3" class="text-center">No Students Found</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h2 class="text-center mb-4 mt-4">My Weekly Schedule</h2>
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Subject</th>
+                <th>Class</th>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.WeeklySchedule != null && Model.WeeklySchedule.Any())
+            {
+                @foreach (var schedule in Model.WeeklySchedule)
+                {
+                    <tr>
+                        <td>@(schedule.Subject ?? "No Subject")</td>
+                        <td>@(schedule.Class ?? "No Class")</td>
+                        <td>@schedule.Date.ToShortDateString()</td>
+                        <td>@schedule.StartTime</td>
+                        <td>@schedule.EndTime</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" class="text-center">No Schedule Available</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+@section Scripts
+{
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+
+        var weeklyAttendanceData = @Html.Raw(Json.Serialize(Model.WeeklyAttendance));
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var ctx = document.getElementById("weeklyAttendanceChart");
+            if (ctx) {
+                new Chart(ctx.getContext("2d"), {
+                    type: "line",
+                    data: {
+                        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+                        datasets: [
+                            {
+                                label: "Attendance",
+                                data: weeklyAttendanceData,
+                                backgroundColor: "rgba(54, 162, 235, 0.2)",
+                                borderColor: "rgba(54, 162, 235, 1)",
+                                borderWidth: 2,
+                                fill: true,
+                                tension: 0.3,
+                            },
+                        ],
+                    },
+                });
+            }
+        });
+    </script>
+}
+

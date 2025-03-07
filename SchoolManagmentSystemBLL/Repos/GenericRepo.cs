@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SchoolManagmentSystem.DAL.Models;
 using SchoolManagmentSystem.PL.Data;
 using SchoolManagmentSystemBLL.IGenericRepos;
 using System;
@@ -49,6 +50,14 @@ namespace SchoolManagmentSystemBLL.GenericRepo
         public async Task AddRange(IEnumerable<T> items)
         {
             await context.Set<T>().AddRangeAsync(items);
+        }
+        public void DeleteAsync(T Entity)
+        {
+            context.Set<T>().Remove(Entity);
+        }
+        public List<T> Filter(Func<T, bool> predicate)
+        {
+            return context.Set<T>()?.Where(predicate).ToList();
         }
     }
 }

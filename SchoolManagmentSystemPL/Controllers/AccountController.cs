@@ -40,7 +40,7 @@ namespace SchoolManagmentSystemPL.Controllers
                 {
                     
 
-                    await user.AddToRoleAsync(app, "Admin");
+                    await user.AddToRoleAsync(app, "Teacher");
 
                     await sign.SignInAsync(app, false);
                     return RedirectToAction("login", "Account");
@@ -56,8 +56,8 @@ namespace SchoolManagmentSystemPL.Controllers
             return View("register");
         }
         public IActionResult login()
-        {
-            return View("login");
+         {
+            return View("Login");
         }
         [HttpPost]
      
@@ -78,11 +78,11 @@ namespace SchoolManagmentSystemPL.Controllers
                         }
                         else if (User.IsInRole("Student"))
                         {
-                            return RedirectToAction("Index", "Home");
+                            return RedirectToAction("Schedule", "StudentDashboard");
                         }
                         else if (User.IsInRole("Teacher"))
                         {
-                            return RedirectToAction("Index", "Home");
+                            return RedirectToAction("Index", "TeacherDashboard");
                         }
                     }
                 }

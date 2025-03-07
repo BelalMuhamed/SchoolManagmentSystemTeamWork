@@ -137,13 +137,15 @@ namespace SchoolManagmentSystemBLL.Mapping
            .ReverseMap();
 
             CreateMap<Answer, AnswerVM>().ReverseMap();
-            CreateMap<StudentAttendance, StudentAttendanceVM>().AfterMap((src, desc) => {
+            CreateMap<StudentAttendance, StudentAttendanceVM>().AfterMap((src, desc) =>
+            {
                 desc.StudentId = src.StudentId;
-                desc.StudentName = src.student.User.UserName;
                 desc.Status = src.Status;
                 desc.Date = src.Date;
+                desc.StudentName = src.student.User.UserName;
 
             }).ReverseMap();
+
 
 
 

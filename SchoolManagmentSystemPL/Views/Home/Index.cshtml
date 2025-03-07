@@ -2,7 +2,122 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
+@* <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div> *@
+
+@using SchoolManagmentSystemDAL.ViewModels
+@model AdminStatisticsVM
+
+
+<div class="container mt-4">
+    <h2 class="mb-4">Admin Dashboard</h2>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Students</h5>
+                    <p class="card-text">@Model.TotalStudents</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Teachers</h5>
+                    <p class="card-text">@Model.TotalTeachers</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Classes</h5>
+                    <p class="card-text">@Model.TotalClasses</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-danger mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Subjects</h5>
+                    <p class="card-text">@Model.TotalSubjects</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Attendance Overview -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Today's Student Attendance</h5>
+                    <p class="card-text">@Model.TodayStudentAttendance</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-white bg-secondary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Today's Teacher Attendance</h5>
+                    <p class="card-text">@Model.TodayTeacherAttendance</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h4>Student Attendance (Last 7 Days)</h4>
+            <canvas id="weeklyStudentAttendanceChart"></canvas>
+        </div>
+        <div class="col-md-6">
+            <h4>Teacher Attendance (Last 7 Days)</h4>
+            <canvas id="weeklyTeacherAttendanceChart"></canvas>
+        </div>
+    </div>
 </div>
+
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var weeklyStudentCtx = document.getElementById('weeklyStudentAttendanceChart').getContext('2d');
+            var weeklyTeacherCtx = document.getElementById('weeklyTeacherAttendanceChart').getContext('2d');
+
+            new Chart(weeklyStudentCtx, {
+                type: 'line',
+                data: {
+                    labels: @Html.Raw(Json.Serialize(Model.WeeklyDates)),
+                    datasets: [{
+                        label: 'Student Attendance',
+                        data: @Html.Raw(Json.Serialize(Model.WeeklyStudentAttendance)),
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 2,
+                        fill: true
+                    }]
+                }
+            });
+
+            new Chart(weeklyTeacherCtx, {
+                type: 'line',
+                data: {
+                    labels: @Html.Raw(Json.Serialize(Model.WeeklyDates)),
+                    datasets: [{
+                        label: 'Teacher Attendance',
+                        data: @Html.Raw(Json.Serialize(Model.WeeklyTeacherAttendance)),
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 2,
+                        fill: true
+                    }]
+                }
+            });
+        });
+    </script>
+
+    }
+

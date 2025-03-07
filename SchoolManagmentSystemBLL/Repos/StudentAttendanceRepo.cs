@@ -20,7 +20,12 @@ namespace SchoolManagmentSystemBLL.Repos
       
         public async Task<List<StudentAttendance>> GetByStudentId(string studentId)
         {
-            return await context.StudentAttendances.Include(t => t.student).ThenInclude(t => t.User).Where(t => t.student.User.IsDeleted == false &&t.StudentId==studentId ).ToListAsync();
+            return await context.StudentAttendances.Where(t => /*t.student.User.IsDeleted == false &&*/ t.StudentId == studentId ).ToListAsync();
+
+        }
+        public async Task<StudentAttendance> GetByStudentIds(string studentId)
+        {
+            return await context.StudentAttendances.Where(t => t.student.User.IsDeleted == false && t.StudentId == studentId).FirstOrDefaultAsync();
 
         }
 

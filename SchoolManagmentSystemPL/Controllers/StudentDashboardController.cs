@@ -18,18 +18,18 @@ namespace SchoolManagmentSystemPL.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Schedule(int? year)
+        public async Task<IActionResult> Schedule()
         {
-            int selectedYear = year ?? DateTime.Now.Year;
-
-
+            int selectedYear = DateTime.Now.Year;
+            
+            string studentId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var classId = unit.StudentRepo.Filter(s => s.UserId == studentId).FirstOrDefault().ClassId;
             var lessons = await unit.ClassLessonRepo.GetAll();
             var filteredLessons = lessons
-                .Where(cl => cl.Date.Year == selectedYear)
+                .Where(cl => cl.Date.Year == selectedYear && cl.ClassId == classId)
                 .ToList();
-
+            ViewData["ClassExam"] = await unit.ClassExamRepo.GetAll();
             var availableYears = await unit.ClassLessonRepo.GetDistinctYearsAsync();
-
             var vm = new ScheduleVM
             {
                 SelectedYear = selectedYear,
@@ -41,24 +41,13 @@ namespace SchoolManagmentSystemPL.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Attendance(string studentId)
+        public async Task<IActionResult> Attendance()
         {
+            string studentId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             List<StudentAttendance> attendances =await  unit.StudentAttendanceRepo.GetByStudentId(studentId);
             List<StudentAttendanceVM> vm = mapper.Map<List<StudentAttendanceVM>>(attendances);
             return View(vm);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> MarkAttendance(StudentAttendanceVM model)
-        {
-            if (ModelState.IsValid)
-            {
-                var attendance = mapper.Map<StudentAttendance>(model);
-                await unit.StudentAttendanceRepo.Add(attendance);
-                await unit.save();
-                return RedirectToAction("Attendance");
-            }
-            return View(model);
-        }
     }
 }

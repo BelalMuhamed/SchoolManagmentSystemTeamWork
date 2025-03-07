@@ -1,0 +1,44 @@
+﻿@using SchoolManagmentSystemDAL.ViewModels
+@model IEnumerable<StudentAttendanceVM>
+
+@{
+    ViewData["Title"] = "Student Attendance";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Student Attendance</h2>
+    <div class="mb-3">
+        <a class="btn btn-primary" asp-action="Create" asp-controller="StudentAttendance">Take Attendance</a>
+    </div>
+
+    <!-- Attendance Table -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover shadow rounded">
+            <thead class="table-dark">
+                <tr>
+                    <th>Student Name</th>
+                    <th>Date</th>
+                    <th>Attendance Status</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.StudentName</td>
+                        <td>@(item.Date.ToString("yyyy-MM-dd"))</td>
+                        <td>@item.Status</td>
+                        <td class="text-center">
+                            <a asp-action="Edit" asp-route-id="@item.StudentId" class="text-info me-2"><i class="fa-solid fa-pen-to-square"></i></a>
+                        </td>
+                        <td class="text-center">
+                            <a asp-action="Remove" asp-route-id="@item.StudentId" class="text-danger"> <i class="fa-solid fa-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

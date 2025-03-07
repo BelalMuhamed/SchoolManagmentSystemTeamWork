@@ -1,79 +1,192 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - SchoolManagmentSystem.PL</title>
-    <script type="importmap"></script>
-  
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+﻿@* <!DOCTYPE html> *@
+@* <html lang="en"> *@
+@* <head> *@
+@*     <meta charset="utf-8" /> *@
+@*     <meta name="viewport" content="width=device-width, initial-scale=1.0" /> *@
+@*     <title>@ViewData["Title"] - SchoolManagmentSystem.PL</title> *@
+@*     <script type="importmap"></script> *@
 
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link href="~/Content/fontawesome/css/all.min.css" rel="stylesheet" />
+@*         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> *@
 
-
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/SchoolManagmentSystem.PL.styles.css" asp-append-version="true" />
-    <script src="~/lib/jquery/dist/jquery.js"></script>
+@*     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
+@*     <link href="~/Content/fontawesome/css/all.min.css" rel="stylesheet" /> *@
+@*     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /> *@
+@*     <link rel="stylesheet" href="~/SchoolManagmentSystem.PL.styles.css" asp-append-version="true" /> *@
+@*     <script src="~/lib/jquery/dist/jquery.js"></script> *@
 
 
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">School Managment System</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        @if(User.IsInRole("Admin"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Student" asp-action="Index">Student</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="ClassForAdmin" asp-action="Index">Classes</a>
-                            </li>
-                            
-                            <li class="nav-item"> 
-                                 <a class="nav-link text-dark" asp-controller="Teacher" asp-action="Index">Teacher</a> 
-                               
-                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="ManageTeacherAttendance" asp-action="Index">Manage Teacher Attendance</a>
+@* </head> *@
+@* <body> *@
+@*     <header> *@
+@*         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"> *@
+@*             <div class="container-fluid"> *@
+@*                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">School Managment System</a> *@
+@*                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" *@
+@*                 aria-expanded="false" aria-label="Toggle navigation"> *@
+@*                     <span class="navbar-toggler-icon"></span> *@
+@*                 </button> *@
+@*                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between"> *@
+@*                     <ul class="navbar-nav flex-grow-1"> *@
+@*                         @if(User.IsInRole("Admin")) *@
+@*                         { *@
+@*                             <li class="nav-item"> *@
+@*                                 <a class="nav-link text-dark" asp-controller="Student" asp-action="Index">Student</a> *@
+@*                             </li> *@
+@*                             <li class="nav-item"> *@
+@*                                 <a class="nav-link text-dark" asp-controller="ClassForAdmin" asp-action="Index">Classes</a> *@
+@*                             </li> *@
 
-                            </li>
-                        }
+@*                             <li class="nav-item">  *@
+@*                                  <a class="nav-link text-dark" asp-controller="Teacher" asp-action="Index">Teacher</a>  *@
 
-                        
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+@*                              </li> *@
+@*                             <li class="nav-item"> *@
+@*                                 <a class="nav-link text-dark" asp-controller="ManageTeacherAttendance" asp-action="Index">Subjects</a> *@
 
-                    <partial name="_LoginPartial" />
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+@*                             </li> *@
+@*                         } *@
 
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - SchoolManagmentSystem.PL - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+@*                         <li class="nav-item"> *@
+@*                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> *@
+@*                         </li> *@
+@*                     </ul> *@
+
+@*                     <partial name="_LoginPartial" /> *@
+@*                 </div> *@
+@*             </div> *@
+@*         </nav> *@
+@*     </header> *@
+@*     <div class="container"> *@
+@*         <main role="main" class="pb-3"> *@
+
+@*             @RenderBody() *@
+@*         </main> *@
+@*     </div> *@
+
+@*     <footer class="border-top footer text-muted"> *@
+@*         <div class="container"> *@
+@*             &copy; 2025 - SchoolManagmentSystem.PL - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> *@
+@*         </div> *@
+@*     </footer> *@
+
+@*     <script src="~/js/site.js" asp-append-version="true"></script> *@
+@*     @await RenderSectionAsync("Scripts", required: false) *@
+
+@* </body> *@
+@* </html> *@
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+
+    @using Microsoft.AspNetCore.Identity
+    @inject SignInManager<ApplicationUser> SignInManager
+    @inject UserManager<ApplicationUser> UserManager
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"]</title>
+        <script type="importmap"></script>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/style.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/WebApplication1.styles.css" asp-append-version="true" />
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+              integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+              crossorigin="anonymous"
+              referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    </head>
+    <body>
+
+        <div class="sidebar">
+            <nav class="d-flex flex-column gap-1">
+                <span class="nav-header text-center fs-4">School Managment System </span>
+
+                <hr />
+                @if (User.IsInRole("Admin"))
+                {
+
+                    <a asp-controller="Home" asp-action="Index" class="nav-link p-3">
+                        <i class="icon fa-solid fa-gauge-high"></i> Dashboard
+                    </a>
+                    <a asp-controller="ClassForAdmin" asp-action="Index" class="nav-link p-3"><i class="icon fa-solid fa-bars-progress"></i> Classes</a>
+                    <a asp-controller="Teacher" asp-action="Index" class="nav-link p-3"><i class="icon fa-solid fa-user-tie"></i> Teachers</a>
+                    <a asp-controller="Student" asp-action="Index" class="nav-link p-3"><i class="icon fa-solid fa-user-tie"></i> Students</a>
+                    <a asp-controller="Subjects" asp-action="Index" class="nav-link p-3"><i class="fa-solid fa-book me-1"></i> Subjects</a>
+
+                    <a asp-controller="ManageTeacherAttendance" asp-action="Index" class="nav-link p-3"><i class="icon fa-solid fa-user-clock"></i> Teacher Attendance History</a>
+                    <a asp-controller="ManageTeacherAttendance" asp-action="SubmitAttendance" class="nav-link p-3"><i class="icon fa-solid fa-user-clock"></i> Take Teachcher Attendance</a>
+
+                    <a asp-controller="StudentAttendance" asp-action="Index" class="nav-link p-3"><i class="icon fa-solid fa-user-clock"></i> Student Attendance</a>
+
+                }
+                @if (User.IsInRole("Teacher"))
+                {
+                    <a asp-controller="TeacherDashboard" asp-action="Index" class="nav-link p-3">
+                        <i class="icon fa-solid fa-gauge-high"></i> Dashboard
+                    </a>
+                    <a asp-controller="Exam" asp-action="Create" class="nav-link p-3"><i class="fa-solid fa-file-pen"></i> &nbsp;Create Exam</a>
+                    <a asp-controller="StudentDegree" asp-action="index" class="nav-link p-3"><i class="fa-solid fa-chart-line"></i> &nbsp;Students Degrees</a>
+                    <a asp-controller="StudentAttendance" asp-action="index" class="nav-link p-3"><i class="fa-solid fa-clipboard-list"></i> &nbsp;Students Attendance</a>
+
+                }
+                @if (User.IsInRole("Student"))
+                {
+                    <a asp-controller="StudentDashboard" asp-action="Schedule" class="nav-link p-3"><i class="fa-solid fa-calendar-alt"></i> &nbsp;Schedule</a>
+                    <a asp-controller="StudentDashboard" asp-action="Attendance" class="nav-link p-3"><i class="fa-solid fa-clipboard-list"></i> &nbsp;Attendance</a>
+                }
+
+                @if (User.IsInRole("Admin") || User.IsInRole("Teacher") || User.IsInRole("Student"))
+                {
+                    <span class="nav-header mt-3">Account Pages</span>
+
+                    <a class="nav-link p-3" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="icon fas fa-user-cog"></i> @User.Identity?.Name</a>
+
+                    <form asp-controller="Account" asp-action="Logout" method="post" class="form-inline">
+                        <button type="submit" class="nav-link p-3">
+                            <i class="fa-solid fa-power-off"></i> Logout
+                        </button>
+                    </form>
+
+                }
+
+            </nav>
         </div>
-    </footer>
-   
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-    
-</body>
-</html>
+
+        <div class="dashboard-content">
+            <div class="container-fluid mt-5">
+                <main role="main" class="pb-3">
+
+                    @RenderBody()
+
+                </main>
+
+            </div>
+
+        </div>
+
+
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/main.js"></script>
+        @await RenderSectionAsync("Scripts", required: false)
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+    </body>
+    </html>
+}
+else
+{
+
+    <a class="nav-link p-3" asp-area="Identity" asp-page="/Account/Login"><i class="icon fa-solid fa-right-to-bracket"></i> Login</a>
+
+}
